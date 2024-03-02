@@ -21,8 +21,9 @@ public class StudentInformationManagementSystem extends Application {
 		FXMLLoader fxmlLoader = new FXMLLoader(StudentInformationManagementSystem
 				.class.getResource("login-view.fxml"));
 		Scene scene = new Scene(fxmlLoader.load(), 400, 200);
-		Image image = new Image("icon.png");
+		Image image = new Image(StudentInformationManagementSystem.class.getResource("icon.png").toString());
 		stage.setTitle("学生信息管理系统");
+		stage.getIcons().setAll(image);
 
 		stage.setScene(scene);
 
