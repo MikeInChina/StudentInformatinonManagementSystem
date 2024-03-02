@@ -2,6 +2,7 @@ package com.wdc.studentinformationmanagementsystem;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
@@ -33,7 +34,7 @@ public class LineMessageController {
 
 	@FXML
 	void close(ActionEvent event) {
-
+		((Node)event.getSource()).getScene().getWindow().hide();
 	}
 
 	@FXML

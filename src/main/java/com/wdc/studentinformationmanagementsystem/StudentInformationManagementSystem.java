@@ -38,7 +38,7 @@ public class StudentInformationManagementSystem extends Application {
 		//全局变量初始化
 		Value.initVars();
 	}
-	public static void setMainScene() throws IOException {
+	public static void setMainScene(boolean isAdmin) throws IOException {
 		FXMLLoader mainFXML = new FXMLLoader(StudentInformationManagementSystem
 				.class.getResource("main-view.fxml"));
 		Scene main = new Scene(mainFXML.load(), 800, 600);
@@ -47,6 +47,10 @@ public class StudentInformationManagementSystem extends Application {
 		Rectangle2D rectangle2d = screen.getBounds();
 		primaryStage.setX(rectangle2d.getWidth()/2 - 400);
 		primaryStage.setY(rectangle2d.getHeight()/2 - 300);
+		if (!isAdmin){
+			MainController mainController = mainFXML.getController();
+			mainController.notAdmin();
+		}
 	}
 
 	public static void main(String[] args) {

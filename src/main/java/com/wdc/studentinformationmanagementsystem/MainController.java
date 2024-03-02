@@ -20,7 +20,8 @@ import java.util.ResourceBundle;
  * 主界面的控制器类，控制主界面的事件处理
  */
 public class MainController implements Initializable {
-
+	@FXML
+	private MenuItem importMenuItem;
 	@FXML
 	private Button delRow;
 	@FXML
@@ -91,20 +92,20 @@ public class MainController implements Initializable {
 
 	@FXML
 	void filter(ActionEvent event) {
-
+		// TODO
 	}
 
 	@FXML
 	void search(ActionEvent event) {
-
+		// TODO
 	}
 
 	public void load(ActionEvent actionEvent) {
-
+		// TODO
 	}
 
 	public void openSettings(ActionEvent actionEvent) {
-
+		// TODO
 	}
 
 	public void exit(ActionEvent actionEvent) {
@@ -149,5 +150,12 @@ public class MainController implements Initializable {
 			Student student = t.getTableView().getItems().get(t.getTablePosition().getRow());
 			student.setName(t.getNewValue());
 		});
+	}
+	public void notAdmin(){
+		delRow.setDisable(true);
+		newRowBtn.setDisable(true);
+		searchBtn.setDisable(true);
+		filterBtn.setDisable(true);
+		importMenuItem.setDisable(true);
 	}
 }

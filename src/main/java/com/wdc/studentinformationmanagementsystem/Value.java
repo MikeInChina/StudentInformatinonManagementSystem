@@ -39,6 +39,12 @@ public class Value {
 	}
 
 	public static void saveVars(){
-
+		File adminAccountAndPasswordFile = new File("data/AAaP.txt");
+		try {
+			FileWriter fw = new FileWriter(adminAccountAndPasswordFile);
+			fw.write(adminAccount + "-==-" + adminPassword);
+		}catch (IOException e){
+			throw new RuntimeException(e);
+		}
 	}
 }

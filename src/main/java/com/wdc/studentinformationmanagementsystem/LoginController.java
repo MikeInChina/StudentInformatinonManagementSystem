@@ -32,10 +32,10 @@ public class LoginController {
 
 	@FXML
 	void adminLogin(ActionEvent event) {
-		if (accountBox.getCharacters().toString().equals(Value.adminAccount) &&
-				passwordBox.getCharacters().toString().equals(Value.adminPassword)){
+		if (accountBox.getText().equals(Value.adminAccount) &&
+				passwordBox.getText().equals(Value.adminPassword)){
 			try {
-				StudentInformationManagementSystem.setMainScene();
+				StudentInformationManagementSystem.setMainScene(true);
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
@@ -62,7 +62,11 @@ public class LoginController {
 
 	@FXML
 	void studentLogin(ActionEvent event) {
-
+		try {
+			StudentInformationManagementSystem.setMainScene(false);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }
