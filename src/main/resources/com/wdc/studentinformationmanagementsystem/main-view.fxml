@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -45,25 +44,19 @@
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
           <Button fx:id="newRowBtn" mnemonicParsing="false" onAction="#createRow" text="新增行" />
-            <Button fx:id="newColBtn" mnemonicParsing="false" onAction="#createColumn" text="新增列" />
             <Button fx:id="delRow" mnemonicParsing="false" onAction="#delRow" text="删除行" />
-            <Button fx:id="delCol" mnemonicParsing="false" onAction="#delColumn" text="删除列" />
             <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#search" text="查找" />
             <Button fx:id="filterBtn" mnemonicParsing="false" onAction="#filter" text="筛选" />
         </items>
       </ToolBar>
-      <ScrollPane hbarPolicy="ALWAYS" prefHeight="536.0" prefWidth="800.0" vbarPolicy="ALWAYS">
-         <content>
-            <TableView fx:id="form" prefHeight="522.0" prefWidth="788.0">
-               <columns>
-                  <TableColumn fx:id="number" prefWidth="75.0" text="序号" />
-                  <TableColumn fx:id="name" prefWidth="75.0" text="姓名" />
-                  <TableColumn fx:id="gender" prefWidth="75.0" text="性别" />
-                  <TableColumn fx:id="studentNumber" prefWidth="75.0" text="学号" />
-                  <TableColumn fx:id="classCol" prefWidth="75.0" text="班级" />
-               </columns>
-            </TableView>
-         </content>
-      </ScrollPane>
+      <TableView fx:id="form" prefHeight="536.0" prefWidth="800.0">
+         <columns>
+            <TableColumn fx:id="number" prefWidth="75.0" text="序号" />
+            <TableColumn fx:id="name" prefWidth="75.0" text="姓名" />
+            <TableColumn fx:id="gender" prefWidth="75.0" text="性别" />
+            <TableColumn fx:id="studentNumber" prefWidth="75.0" text="学号" />
+            <TableColumn fx:id="classCol" prefWidth="75.0" text="班级" />
+         </columns>
+      </TableView>
   </children>
 </VBox>

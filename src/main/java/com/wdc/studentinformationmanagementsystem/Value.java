@@ -15,7 +15,7 @@ public class Value {
 
 
 	public static void initVars(){
-		File adminAccountAndPasswordFile = new File("AAaP.txt");
+		File adminAccountAndPasswordFile = new File("data/AAaP.txt");
 
 		try{
 			if (!adminAccountAndPasswordFile.exists()){
