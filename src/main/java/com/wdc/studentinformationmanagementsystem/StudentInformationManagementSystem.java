@@ -2,11 +2,15 @@ package com.wdc.studentinformationmanagementsystem;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+
+import static com.wdc.studentinformationmanagementsystem.Value.icon;
+
 /**
  * 作者：王墩灿 <br>
  * 学校：广州开发区外国语学校 <br>
@@ -16,21 +20,36 @@ import java.io.IOException;
  * @see LoginController
  */
 public class StudentInformationManagementSystem extends Application {
+	static Stage primaryStage;
 	@Override
 	public void start(Stage stage) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(StudentInformationManagementSystem
+		StudentInformationManagementSystem.primaryStage = stage;
+
+
+		FXMLLoader loginFXML = new FXMLLoader(StudentInformationManagementSystem
 				.class.getResource("login-view.fxml"));
-		Scene scene = new Scene(fxmlLoader.load(), 400, 200);
-		Image image = new Image(StudentInformationManagementSystem.class.getResource("icon.png").toString());
+		Scene loginScene = new Scene(loginFXML.load(), 400, 200);
+		stage.setScene(loginScene);
+
+		stage.getIcons().setAll(icon);
 		stage.setTitle("学生信息管理系统");
-		stage.getIcons().setAll(image);
-
-		stage.setScene(scene);
-
 		stage.show();
+
+		//全局变量初始化
+		Value.initVars();
+	}
+	public static void setMainScene() throws IOException {
+		FXMLLoader mainFXML = new FXMLLoader(StudentInformationManagementSystem
+				.class.getResource("main-view.fxml"));
+		Scene main = new Scene(mainFXML.load(), 800, 600);
+		primaryStage.setScene(main);
+		Screen screen = Screen.getPrimary();
+		Rectangle2D rectangle2d = screen.getBounds();
+		primaryStage.setX(rectangle2d.getWidth()/2 - 400);
+		primaryStage.setY(rectangle2d.getHeight()/2 - 300);
 	}
 
 	public static void main(String[] args) {
-		launch();
+		launch(args);
 	}
 }
