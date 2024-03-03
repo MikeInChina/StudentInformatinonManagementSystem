@@ -1,6 +1,8 @@
 package com.wdc.studentinformationmanagementsystem;
 
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileReader;
@@ -12,6 +14,7 @@ public class Value {
 	public static String adminPassword = "123456";
 	public static Image icon = new Image(StudentInformationManagementSystem.class.getResource("icon.png").
 			toString());
+	public static boolean isAdmin = true;
 
 
 	public static void initVars(){
@@ -46,5 +49,13 @@ public class Value {
 		}catch (IOException e){
 			throw new RuntimeException(e);
 		}
+	}
+	public static Alert createAlert(Alert.AlertType type, String title, String text){
+		Alert alert = new Alert(type);
+		alert.setTitle(title);
+		alert.setHeaderText(null);
+		alert.setContentText(text);
+		((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().setAll(icon);
+		return alert;
 	}
 }

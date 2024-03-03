@@ -21,6 +21,8 @@ import java.util.ResourceBundle;
  */
 public class MainController implements Initializable {
 	@FXML
+	private MenuItem changeAccountMenuItem;
+	@FXML
 	private MenuItem importMenuItem;
 	@FXML
 	private Button delRow;
@@ -57,10 +59,7 @@ public class MainController implements Initializable {
 		lineMessageController.setCallBack((student) -> {
 			form.getItems().add(student);
 			popUpStage.close();
-			Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			alert.setTitle("学生信息管理系统-提示");
-			alert.setContentText("创建成功！");
-			alert.setHeaderText(null);
+			Alert alert = Value.createAlert(Alert.AlertType.INFORMATION, "学生信息管理系统-提示", "创建成功！");
 			alert.showAndWait();
 		});
 		popUpStage.setScene(scene);
@@ -75,17 +74,12 @@ public class MainController implements Initializable {
 	void delRow(ActionEvent event) {
 		int index = form.getSelectionModel().getSelectedIndex();
 		if (index == -1) return;
-		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-		alert.setTitle("学生信息管理系统-询问");
-		alert.setHeaderText(null);
-		alert.setContentText("是否要删除行" + (index + 1) + "?");
+		Alert alert = Value.createAlert(Alert.AlertType.CONFIRMATION, "学生信息管理系统-询问",
+				"是否要删除第 " + (index + 1) + " 行?");
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.isPresent() && result.get().equals(ButtonType.OK)){
 			form.getItems().remove(index);
-			Alert info = new Alert(Alert.AlertType.INFORMATION);
-			info.setTitle("学生信息管理系统-询问");
-			info.setHeaderText(null);
-			info.setContentText("删除成功！");
+			Alert info = Value.createAlert(Alert.AlertType.INFORMATION, "学生信息管理系统-提示", "删除成功！");
 			info.showAndWait();
 		}
 	}
@@ -106,12 +100,36 @@ public class MainController implements Initializable {
 
 	@FXML
 	void changeAccount(ActionEvent event) {
-
+		FXMLLoader loader = new FXMLLoader(StudentInformationManagementSystem.class
+				.getResource("change_account-view.fxml"));
+		Scene scene;
+		try {
+			scene = new Scene(loader.load(), 400, 200);
+		}catch (IOException e){
+			throw new RuntimeException(e);
+		}
+		Stage cAStage = new Stage();
+		cAStage.setScene(scene);
+		cAStage.setTitle("学生信息管理系统-更改账号");
+		cAStage.getIcons().setAll(Value.icon);
+		cAStage.show();
 	}
 
 	@FXML
 	void changePassword(ActionEvent event) {
-
+		FXMLLoader loader = new FXMLLoader(StudentInformationManagementSystem.class
+				.getResource("change_password-view.fxml"));
+		Scene scene;
+		try {
+			scene = new Scene(loader.load(), 400, 200);
+		}catch (IOException e){
+			throw new RuntimeException(e);
+		}
+		Stage cPStage = new Stage();
+		cPStage.setScene(scene);
+		cPStage.setTitle("学生信息管理系统-更改密码");
+		cPStage.getIcons().setAll(Value.icon);
+		cPStage.show();
 	}
 
 
@@ -164,5 +182,6 @@ public class MainController implements Initializable {
 		searchBtn.setDisable(true);
 		filterBtn.setDisable(true);
 		importMenuItem.setDisable(true);
+		changeAccountMenuItem.setDisable(true);
 	}
 }

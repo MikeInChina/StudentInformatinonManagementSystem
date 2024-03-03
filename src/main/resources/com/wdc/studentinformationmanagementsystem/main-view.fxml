@@ -28,7 +28,7 @@
                 <accelerator>
                     <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP" shift="DOWN" shortcut="UP"/>
                 </accelerator>
-                <MenuItem mnemonicParsing="false" onAction="#changeAccount" text="修改账号"/>
+                <MenuItem fx:id="changeAccountMenuItem" mnemonicParsing="false" onAction="#changeAccount" text="修改账号"/>
                 <MenuItem mnemonicParsing="false" onAction="#changePassword" text="修改密码"/>
             </Menu>
             <SeparatorMenuItem mnemonicParsing="false"/>
