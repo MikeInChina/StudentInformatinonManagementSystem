@@ -104,9 +104,16 @@ public class MainController implements Initializable {
 		// TODO
 	}
 
-	public void openSettings(ActionEvent actionEvent) {
-		// TODO
+	@FXML
+	void changeAccount(ActionEvent event) {
+
 	}
+
+	@FXML
+	void changePassword(ActionEvent event) {
+
+	}
+
 
 	public void exit(ActionEvent actionEvent) {
 		System.exit(0);
