@@ -11,56 +11,47 @@
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wdc.studentinformationmanagementsystem.MainController">
-  <children>
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.wdc.studentinformationmanagementsystem.MainController">
     <MenuBar VBox.vgrow="NEVER">
-         <menus>
-            <Menu mnemonicParsing="false" text="文件(F)">
-              <items>
-                <MenuItem fx:id="importMenuItem" mnemonicParsing="false" onAction="#load" text="导入(I)">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="I" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <Menu mnemonicParsing="false" text="设置(S)">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#changeAccount" text="修改账号" />
-                      <MenuItem mnemonicParsing="false" onAction="#changePassword" text="修改密码" />
-                    </items>
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
-                     </accelerator>
-                  </Menu>
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#exit" text="退出(Q)">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-              </items>
-               <accelerator>
-                  <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-               </accelerator>
+        <Menu mnemonicParsing="false" text="文件(F)">
+            <accelerator>
+                <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP" shortcut="UP"/>
+            </accelerator>
+            <MenuItem fx:id="importMenuItem" mnemonicParsing="false" onAction="#load" text="导入(I)">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" code="I" control="DOWN" meta="UP" shift="UP" shortcut="UP"/>
+                </accelerator>
+            </MenuItem>
+            <SeparatorMenuItem mnemonicParsing="false"/>
+            <Menu mnemonicParsing="false" text="设置(S)">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP" shift="DOWN" shortcut="UP"/>
+                </accelerator>
+                <MenuItem mnemonicParsing="false" onAction="#changeAccount" text="修改账号"/>
+                <MenuItem mnemonicParsing="false" onAction="#changePassword" text="修改密码"/>
             </Menu>
-         </menus>
+            <SeparatorMenuItem mnemonicParsing="false"/>
+            <MenuItem mnemonicParsing="false" onAction="#exit" text="退出(Q)">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="DOWN" shortcut="UP"/>
+                </accelerator>
+            </MenuItem>
+        </Menu>
     </MenuBar>
-      <ToolBar prefHeight="40.0" prefWidth="200.0">
-        <items>
-          <Button fx:id="newRowBtn" mnemonicParsing="false" onAction="#createRow" text="新增行" />
-            <Button fx:id="delRow" mnemonicParsing="false" onAction="#delRow" text="删除行" />
-            <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#search" text="查找" />
-            <Button fx:id="filterBtn" mnemonicParsing="false" onAction="#filter" text="筛选" />
-        </items>
-      </ToolBar>
-      <TableView fx:id="form" prefHeight="536.0" prefWidth="800.0">
-         <columns>
-            <TableColumn fx:id="number" prefWidth="75.0" text="序号" />
-            <TableColumn fx:id="name" prefWidth="75.0" text="姓名" />
-            <TableColumn fx:id="gender" prefWidth="75.0" text="性别" />
-            <TableColumn fx:id="studentNumber" prefWidth="75.0" text="学号" />
-            <TableColumn fx:id="classCol" prefWidth="75.0" text="班级" />
-         </columns>
-      </TableView>
-  </children>
+    <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <Button fx:id="newRowBtn" mnemonicParsing="false" onAction="#createRow" text="新增行"/>
+        <Button fx:id="delRow" mnemonicParsing="false" onAction="#delRow" text="删除行"/>
+        <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#search" text="查找"/>
+        <Button fx:id="filterBtn" mnemonicParsing="false" onAction="#filter" text="筛选"/>
+    </ToolBar>
+    <TableView fx:id="form" prefHeight="536.0" prefWidth="800.0">
+        <columns>
+          <TableColumn fx:id="number" prefWidth="75.0" text="序号"/>
+          <TableColumn fx:id="name" prefWidth="75.0" text="姓名"/>
+          <TableColumn fx:id="gender" prefWidth="75.0" text="性别"/>
+          <TableColumn fx:id="studentNumber" prefWidth="75.0" text="学号"/>
+          <TableColumn fx:id="classCol" prefWidth="75.0" text="班级"/>
+        </columns>
+    </TableView>
 </VBox>
