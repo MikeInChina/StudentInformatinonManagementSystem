@@ -25,11 +25,13 @@ public class Value {
 
 
 	public static void initVars(){
+		File dir = new File("data/");
 		File adminAccountAndPasswordFile = new File("data/AAaP.txt");
 		File studentsFile = new File("data/students.txt");
 
 		try{
 			if (!adminAccountAndPasswordFile.exists()){
+				dir.mkdirs();
 				adminAccountAndPasswordFile.createNewFile();
 				studentsFile.createNewFile();
 				FileWriter fw = new FileWriter(adminAccountAndPasswordFile);
