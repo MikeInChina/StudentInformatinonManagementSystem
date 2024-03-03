@@ -61,7 +61,7 @@ public class MainController implements Initializable {
 		LineMessageController lineMessageController = loader.getController();
 		lineMessageController.setCallBack((student) -> {
 			form.getItems().add(student);
-			Value.students.add(student);
+			Value.addStudent(student);
 			popUpStage.close();
 			Alert alert = Value.createAlert(Alert.AlertType.INFORMATION, "学生信息管理系统-提示", "创建成功！");
 			alert.showAndWait();
@@ -141,7 +141,7 @@ public class MainController implements Initializable {
 				if (ints[2] != -1) student.setGender(strings[ints[2]-1]);
 				if (ints[3] != -1) student.setShift(strings[ints[3]-1]);
 				form.getItems().add(student);
-				Value.students.add(student);
+				Value.addStudent(student);
 			}
 		});
 

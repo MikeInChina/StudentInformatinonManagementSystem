@@ -6,8 +6,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
-import java.util.Vector;
+import java.util.*;
 
 public class Value {
 	public static String adminAccount = "admin";
@@ -85,5 +84,8 @@ public class Value {
 		alert.setContentText(text);
 		((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().setAll(icon);
 		return alert;
+	}
+	public static void addStudent(Student s){
+		students.add(s);
 	}
 }
