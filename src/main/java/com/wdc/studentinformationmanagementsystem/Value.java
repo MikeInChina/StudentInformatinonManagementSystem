@@ -1,6 +1,11 @@
 package com.wdc.studentinformationmanagementsystem;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -87,5 +92,45 @@ public class Value {
 	}
 	public static void addStudent(Student s){
 		students.add(s);
+	}
+	public static void initForm(TableView<Student> form, TableColumn<Student, String> number,
+	                            TableColumn<Student, String> name, TableColumn<Student, String> gender,
+	                            TableColumn<Student, String> classCol, TableColumn<Student, String> studentNumber){
+		form.setEditable(true);
+		number.setCellFactory((tableColumn) -> new TableCell<>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				this.setText(null);
+				this.setGraphic(null);
+				if (!empty) {
+					this.setText(String.valueOf(this.getIndex() + 1));
+				}
+			}
+		});
+		studentNumber.setCellValueFactory(new PropertyValueFactory<>("studentNumber"));
+		classCol.setCellValueFactory(new PropertyValueFactory<>("shift"));
+		gender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+		name.setCellValueFactory(new PropertyValueFactory<>("name"));
+		studentNumber.setCellFactory(TextFieldTableCell.forTableColumn());
+		studentNumber.setOnEditCommit((TableColumn.CellEditEvent<Student, String> t) -> {
+			Student student = t.getTableView().getItems().get(t.getTablePosition().getRow());
+			student.setStudentNumber(t.getNewValue());
+		});
+		classCol.setCellFactory(TextFieldTableCell.forTableColumn());
+		classCol.setOnEditCommit((TableColumn.CellEditEvent<Student, String> t) -> {
+			Student student = t.getTableView().getItems().get(t.getTablePosition().getRow());
+			student.setShift(t.getNewValue());
+		});
+		gender.setCellFactory(TextFieldTableCell.forTableColumn());
+		gender.setOnEditCommit((TableColumn.CellEditEvent<Student, String> t) -> {
+			Student student = t.getTableView().getItems().get(t.getTablePosition().getRow());
+			student.setGender(t.getNewValue());
+		});
+		name.setCellFactory(TextFieldTableCell.forTableColumn());
+		name.setOnEditCommit((TableColumn.CellEditEvent<Student, String> t) -> {
+			Student student = t.getTableView().getItems().get(t.getTablePosition().getRow());
+			student.setName(t.getNewValue());
+		});
 	}
 }

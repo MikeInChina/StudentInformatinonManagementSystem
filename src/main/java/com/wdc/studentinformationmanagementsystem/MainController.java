@@ -6,8 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -30,8 +28,6 @@ public class MainController implements Initializable {
 	@FXML
 	private Button delRow;
 	@FXML
-	private Button filterBtn;
-	@FXML
 	private Button newRowBtn;
 	@FXML
 	private Button searchBtn;
@@ -47,30 +43,36 @@ public class MainController implements Initializable {
 	public TableColumn<Student, String> classCol;
 	@FXML
 	public TableColumn<Student, String> gender;
-	@FXML
-	void createRow(ActionEvent event) {
-		Stage popUpStage = new Stage();
-		FXMLLoader loader = new FXMLLoader(StudentInformationManagementSystem.class
-				.getResource("line_msg-view.fxml"));
+
+	public static Stage getStageFromLoader(FXMLLoader loader, double width, double height) {
 		Scene scene;
 		try {
-			scene = new Scene(loader.load(), 400, 200);
-		} catch (IOException e) {
+			scene = new Scene(loader.load(), width, height);
+		}catch (IOException e){
 			throw new RuntimeException(e);
 		}
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.getIcons().setAll(Value.icon);
+		return stage;
+	}
+
+	@FXML
+	void createRow(ActionEvent event) {
+		FXMLLoader loader = new FXMLLoader(StudentInformationManagementSystem.class
+				.getResource("line_msg-view.fxml"));
+		Stage stage = getStageFromLoader(loader, 400, 200);
 		LineMessageController lineMessageController = loader.getController();
 		lineMessageController.setCallBack((student) -> {
 			form.getItems().add(student);
 			Value.addStudent(student);
-			popUpStage.close();
+			stage.close();
 			Alert alert = Value.createAlert(Alert.AlertType.INFORMATION, "学生信息管理系统-提示", "创建成功！");
 			alert.showAndWait();
 		});
-		popUpStage.setScene(scene);
-		popUpStage.initModality(Modality.APPLICATION_MODAL);
-		popUpStage.setTitle("学生信息管理系统-请输入");
-		popUpStage.getIcons().setAll(Value.icon);
-		popUpStage.show();
+		stage.setTitle("学生信息管理系统-请输入");
+		stage.show();
 	}
 
 
@@ -90,13 +92,12 @@ public class MainController implements Initializable {
 	}
 
 	@FXML
-	void filter(ActionEvent event) {
-		// TODO
-	}
-
-	@FXML
 	void search(ActionEvent event) {
-		// TODO
+		FXMLLoader fxmlLoader = new FXMLLoader(StudentInformationManagementSystem.class
+				.getResource("search-view.fxml"));
+		Stage stage = getStageFromLoader(fxmlLoader, 350, 100);
+		stage.setTitle("学生信息管理系统-搜索");
+		stage.show();
 	}
 
 	public void load(ActionEvent actionEvent) {
@@ -147,6 +148,7 @@ public class MainController implements Initializable {
 
 		Stage stage = new Stage();
 		stage.setScene(scene);
+		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.setTitle("学生信息管理系统-选取文件列");
 		stage.getIcons().setAll(Value.icon);
 		stage.show();
@@ -156,34 +158,18 @@ public class MainController implements Initializable {
 	void changeAccount(ActionEvent event) {
 		FXMLLoader loader = new FXMLLoader(StudentInformationManagementSystem.class
 				.getResource("change_account-view.fxml"));
-		Scene scene;
-		try {
-			scene = new Scene(loader.load(), 400, 200);
-		}catch (IOException e){
-			throw new RuntimeException(e);
-		}
-		Stage cAStage = new Stage();
-		cAStage.setScene(scene);
-		cAStage.setTitle("学生信息管理系统-更改账号");
-		cAStage.getIcons().setAll(Value.icon);
-		cAStage.show();
+		Stage stage = getStageFromLoader(loader, 400, 200);
+		stage.setTitle("学生信息管理系统-更改账号");
+		stage.show();
 	}
 
 	@FXML
 	void changePassword(ActionEvent event) {
 		FXMLLoader loader = new FXMLLoader(StudentInformationManagementSystem.class
 				.getResource("change_password-view.fxml"));
-		Scene scene;
-		try {
-			scene = new Scene(loader.load(), 400, 200);
-		}catch (IOException e){
-			throw new RuntimeException(e);
-		}
-		Stage cPStage = new Stage();
-		cPStage.setScene(scene);
-		cPStage.setTitle("学生信息管理系统-更改密码");
-		cPStage.getIcons().setAll(Value.icon);
-		cPStage.show();
+		Stage stage = getStageFromLoader(loader, 400, 200);
+		stage.setTitle("学生信息管理系统-更改密码");
+		stage.show();
 	}
 
 
@@ -193,42 +179,7 @@ public class MainController implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		form.setEditable(true);
-		number.setCellFactory((tableColumn) -> new TableCell<>() {
-			@Override
-			protected void updateItem(String item, boolean empty) {
-				super.updateItem(item, empty);
-				this.setText(null);
-				this.setGraphic(null);
-				if (!empty) {
-					this.setText(String.valueOf(this.getIndex() + 1));
-				}
-			}
-		});
-		studentNumber.setCellValueFactory(new PropertyValueFactory<>("studentNumber"));
-		classCol.setCellValueFactory(new PropertyValueFactory<>("shift"));
-		gender.setCellValueFactory(new PropertyValueFactory<>("gender"));
-		name.setCellValueFactory(new PropertyValueFactory<>("name"));
-		studentNumber.setCellFactory(TextFieldTableCell.forTableColumn());
-		studentNumber.setOnEditCommit((TableColumn.CellEditEvent<Student, String> t) -> {
-			Student student = t.getTableView().getItems().get(t.getTablePosition().getRow());
-			student.setStudentNumber(t.getNewValue());
-		});
-		classCol.setCellFactory(TextFieldTableCell.forTableColumn());
-		classCol.setOnEditCommit((TableColumn.CellEditEvent<Student, String> t) -> {
-			Student student = t.getTableView().getItems().get(t.getTablePosition().getRow());
-			student.setShift(t.getNewValue());
-		});
-		gender.setCellFactory(TextFieldTableCell.forTableColumn());
-		gender.setOnEditCommit((TableColumn.CellEditEvent<Student, String> t) -> {
-			Student student = t.getTableView().getItems().get(t.getTablePosition().getRow());
-			student.setGender(t.getNewValue());
-		});
-		name.setCellFactory(TextFieldTableCell.forTableColumn());
-		name.setOnEditCommit((TableColumn.CellEditEvent<Student, String> t) -> {
-			Student student = t.getTableView().getItems().get(t.getTablePosition().getRow());
-			student.setName(t.getNewValue());
-		});
+		Value.initForm(form, number, name, gender, classCol, studentNumber);
 		for (Student s : Value.students){
 			form.getItems().add(s);
 		}
@@ -237,7 +188,6 @@ public class MainController implements Initializable {
 		delRow.setDisable(true);
 		newRowBtn.setDisable(true);
 		searchBtn.setDisable(true);
-		filterBtn.setDisable(true);
 		importMenuItem.setDisable(true);
 		changeAccountMenuItem.setDisable(true);
 		Value.isAdmin = false;
