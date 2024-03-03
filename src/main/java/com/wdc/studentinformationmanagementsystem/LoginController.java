@@ -7,7 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 登录界面的控制器类，控制登录界面的事件处理
@@ -39,7 +40,8 @@ public class LoginController {
 				throw new RuntimeException(e);
 			}
 		}else {
-			Alert alert = Value.createAlert(Alert.AlertType.ERROR, "学生信息管理系统-提示", "用户名或密码不正确！");
+			Alert alert = Value.createAlert(Alert.AlertType.ERROR, "学生信息管理系统-提示",
+					"用户名或密码不正确！");
 			alert.showAndWait();
 		}
 	}
@@ -56,11 +58,51 @@ public class LoginController {
 
 	@FXML
 	void studentLogin(ActionEvent event) {
-		try {
-			StudentInformationManagementSystem.setMainScene(false);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
+		System.out.println(passwordBox.getText());
+		for (Student s : Value.students){
+			if (s.studentNumber.equals(accountBox.getText())){
+				int passwordHash = getPasswordHash(s);
+				if (Value.hash(passwordBox.getText()) == passwordHash) {
+					try {
+						Value.studentAccount = accountBox.getText();
+						StudentInformationManagementSystem.setMainScene(false);
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+				}else {
+					Alert alert = Value.createAlert(Alert.AlertType.ERROR, "学生信息管理系统-提示",
+							"用户名或密码不正确！");
+					alert.showAndWait();
+				}
+
+				return;
+			}
 		}
+		Alert alert = Value.createAlert(Alert.AlertType.ERROR, "学生信息管理系统-提示", "无此用户!");
+		alert.showAndWait();
+	}
+
+	private static int getPasswordHash(Student s) {
+		int passwordHash;
+		File file = new File("data/" + s.studentNumber + ".txt");
+		if (!file.exists()){
+			try (BufferedWriter fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file),
+					StandardCharsets.UTF_8))){
+				file.createNewFile();
+				fw.write(Value.studentPassword);
+				passwordHash = Value.studentPassword;
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}else{
+			try (BufferedReader br = new BufferedReader(new FileReader(file))){
+				String line = br.readLine();
+				passwordHash = Integer.parseInt(line);
+			}catch (IOException e){
+				throw new RuntimeException(e);
+			}
+		}
+		return passwordHash;
 	}
 
 }

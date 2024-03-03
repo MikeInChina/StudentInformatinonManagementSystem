@@ -16,6 +16,8 @@ import java.util.*;
 public class Value {
 	public static int adminAccount = hash("admin");
 	public static int adminPassword = hash("123456");
+	public static String studentAccount = "null";
+	public static int studentPassword = hash("123456");
 	public static Image icon = new Image(Objects.requireNonNull(StudentInformationManagementSystem.class
 					.getResource("icon.png")).toString());
 	public static boolean isAdmin = true;
@@ -78,6 +80,12 @@ public class Value {
 				bw.flush();
 			}
 			bw.close();
+			File studentAccountFile = new File("data/" + studentAccount + ".txt");
+			if (studentAccount != null){
+				FileWriter fileWriter = new FileWriter(studentAccountFile);
+				fileWriter.write(String.valueOf(studentPassword));
+				fileWriter.close();
+			}
 		}catch (IOException e){
 			throw new RuntimeException(e);
 		}
