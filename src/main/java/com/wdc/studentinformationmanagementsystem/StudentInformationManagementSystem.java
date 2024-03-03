@@ -37,6 +37,9 @@ public class StudentInformationManagementSystem extends Application {
 
 		//全局变量初始化
 		Value.initVars();
+
+		//添加Shutdown Hook
+		Runtime.getRuntime().addShutdownHook(new Hook());
 	}
 	public static void setMainScene(boolean isAdmin) throws IOException {
 		FXMLLoader mainFXML = new FXMLLoader(StudentInformationManagementSystem
@@ -50,6 +53,15 @@ public class StudentInformationManagementSystem extends Application {
 		if (!isAdmin){
 			MainController mainController = mainFXML.getController();
 			mainController.notAdmin();
+		}
+	}
+	/**
+	 * Shutdown Hook
+	 */
+	private class Hook extends Thread {
+		@Override
+		public void run() {
+			Value.saveVars();
 		}
 	}
 

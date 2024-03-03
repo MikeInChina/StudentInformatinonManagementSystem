@@ -6,6 +6,14 @@ public class Student {
 	public String gender;
 	public String shift;
 
+	/**
+	 * @param studentNumber 学号
+	 * @param name 姓名
+	 * @param gender 性别
+	 * @param shift 班级<br>
+	 * (shift也有班级之意)
+	 */
+
 	public Student(String studentNumber, String name, String gender, String shift) {
 		this.studentNumber = studentNumber;
 		this.name = name;

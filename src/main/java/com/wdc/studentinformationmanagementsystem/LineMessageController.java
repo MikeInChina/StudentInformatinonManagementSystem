@@ -26,9 +26,9 @@ public class LineMessageController {
 	@FXML
 	private TextField studentNumberField;
 
-	DataCallBack callBack;
+	StudentDataCallBack callBack;
 
-	public void setCallBack(DataCallBack callBack) {
+	public void setCallBack(StudentDataCallBack callBack) {
 		this.callBack = callBack;
 	}
 
@@ -41,7 +41,7 @@ public class LineMessageController {
 	void create(ActionEvent event) {
 		Student student = new Student(studentNumberField.getText(), nameField.getText(),
 				genderField.getText(), classField.getText());
-		callBack.onDataReceived(student);
+		callBack.onStudentDataReceived(student);
 	}
 
 }
