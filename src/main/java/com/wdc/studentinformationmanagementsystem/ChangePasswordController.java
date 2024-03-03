@@ -26,8 +26,9 @@ public class ChangePasswordController {
     }
     @FXML
     void ok(ActionEvent event) {
-        if (Value.isAdmin && field1.getText().equals(Value.adminPassword) && field2.getText().equals(field3.getText())){
-            Value.adminPassword = field2.getText();
+        if (Value.isAdmin && Value.hash(field1.getText()) == Value.adminPassword &&
+                field2.getText().equals(field3.getText())){
+            Value.adminPassword = Value.hash(field2.getText());
             Alert alert = Value.createAlert(Alert.AlertType.INFORMATION, "学生信息管理系统-提示", "修改成功!");
             alert.showAndWait();
             ((Node)event.getSource()).getScene().getWindow().hide();

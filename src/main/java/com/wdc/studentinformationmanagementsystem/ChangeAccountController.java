@@ -26,8 +26,9 @@ public class ChangeAccountController {
     }
     @FXML
     void ok(ActionEvent event) {
-        if (field1.getText().equals(Value.adminAccount) && field2.getText().equals(field3.getText())){
-            Value.adminAccount = field2.getText();
+        if (Value.hash(field1.getText()) == Value.adminAccount &&
+                field2.getText().equals(field3.getText())){
+            Value.adminAccount = Value.hash(field2.getText());
             Alert alert = Value.createAlert(Alert.AlertType.INFORMATION, "学生信息管理系统-提示", "修改成功!");
             alert.showAndWait();
             ((Node)event.getSource()).getScene().getWindow().hide();

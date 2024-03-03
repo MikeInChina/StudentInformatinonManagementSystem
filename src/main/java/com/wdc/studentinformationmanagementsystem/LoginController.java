@@ -31,8 +31,8 @@ public class LoginController {
 
 	@FXML
 	void adminLogin(ActionEvent event) {
-		if (accountBox.getText().equals(Value.adminAccount) &&
-				passwordBox.getText().equals(Value.adminPassword)){
+		if (Value.hash(accountBox.getText()) == Value.adminAccount &&
+				Value.hash(passwordBox.getText()) == Value.adminPassword){
 			try {
 				StudentInformationManagementSystem.setMainScene(true);
 			} catch (IOException e) {

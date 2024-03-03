@@ -14,8 +14,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Value {
-	public static String adminAccount = "admin";
-	public static String adminPassword = "123456";
+	public static int adminAccount = hash("admin");
+	public static int adminPassword = hash("123456");
 	public static Image icon = new Image(Objects.requireNonNull(StudentInformationManagementSystem.class
 					.getResource("icon.png")).toString());
 	public static boolean isAdmin = true;
@@ -31,7 +31,7 @@ public class Value {
 				adminAccountAndPasswordFile.createNewFile();
 				studentsFile.createNewFile();
 				FileWriter fw = new FileWriter(adminAccountAndPasswordFile);
-				fw.write("admin-==-123456");
+				fw.write(hash("admin") + "-==-" + hash("123456"));
 				fw.close();
 			}else {
 				FileReader fr = new FileReader(adminAccountAndPasswordFile);
@@ -40,8 +40,8 @@ public class Value {
 				fr.close();
 				String adminAccountAndPasswordString = new String(buf, 0, len);
 				String[] adminAccountAndPassword = adminAccountAndPasswordString.split("-==-");
-				adminAccount = adminAccountAndPassword[0];
-				adminPassword = adminAccountAndPassword[1];
+				adminAccount = Integer.parseInt(adminAccountAndPassword[0]);
+				adminPassword = Integer.parseInt(adminAccountAndPassword[1]);
 
 				BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(studentsFile),
 						StandardCharsets.UTF_8));
@@ -132,5 +132,8 @@ public class Value {
 			Student student = t.getTableView().getItems().get(t.getTablePosition().getRow());
 			student.setName(t.getNewValue());
 		});
+	}
+	public static int hash(String s){
+		return Objects.hash(s);
 	}
 }
