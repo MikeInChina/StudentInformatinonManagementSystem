@@ -51,7 +51,7 @@ public class Value {
 						StandardCharsets.UTF_8));
 				String line;
 				while ((line = br.readLine()) != null){
-					String[] properties = line.split(", ");
+					String[] properties = line.split(" ");
 					if (properties.length <= 1){
 						System.out.println("有一行数据不符合格式");
 						continue;
@@ -77,7 +77,7 @@ public class Value {
 					StandardCharsets.UTF_8));
 			for (Student s : students){
 				// 学号 姓名 性别 班级
-				bw.write("%s, %s, %s, %s".formatted(s.studentNumber, s.name, s.gender, s.shift));
+				bw.write("%s %s %s %s".formatted(s.studentNumber, s.name, s.gender, s.shift));
 				bw.newLine();
 				bw.flush();
 			}
