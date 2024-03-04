@@ -61,8 +61,8 @@ public class MainController implements Initializable {
 		FXMLLoader loader = new FXMLLoader(StudentInformationManagementSystem.class
 				.getResource("line_msg-view.fxml"));
 		Stage stage = getStageFromLoader(loader, 400, 200);
-		LineMessageController lineMessageController = loader.getController();
-		lineMessageController.setCallBack((student) -> {
+		LineInformationController lineInformationController = loader.getController();
+		lineInformationController.setCallBack((student) -> {
 			form.getItems().add(student);
 			Value.addStudent(student);
 			stage.close();
@@ -134,7 +134,7 @@ public class MainController implements Initializable {
 		controller.setCols(information.get(0));
 		controller.setDataCallBack((ints) -> {
 			for(String[] strings : information){
-				Student student = new Student("", "", "", "");
+				Student student = new Student("-", "-", "-", "-");
 				if (ints[0] != -1) student.setStudentNumber(strings[ints[0]-1]);
 				if (ints[1] != -1) student.setName(strings[ints[1]-1]);
 				if (ints[2] != -1) student.setGender(strings[ints[2]-1]);

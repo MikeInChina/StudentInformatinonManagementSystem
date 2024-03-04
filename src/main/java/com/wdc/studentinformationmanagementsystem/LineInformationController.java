@@ -6,7 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class LineMessageController {
+public class LineInformationController {
 
 	@FXML
 	private Button cancelBtn;
@@ -41,6 +41,10 @@ public class LineMessageController {
 	void create(ActionEvent event) {
 		Student student = new Student(studentNumberField.getText(), nameField.getText(),
 				genderField.getText(), classField.getText());
+		if (student.getStudentNumber().isEmpty()) student.setStudentNumber("-");
+		if (student.getGender().isEmpty()) student.setGender("-");
+		if (student.getName().isEmpty()) student.setName("-");
+		if (student.getShift().isEmpty()) student.setShift("-");
 		callBack.onStudentDataReceived(student);
 	}
 

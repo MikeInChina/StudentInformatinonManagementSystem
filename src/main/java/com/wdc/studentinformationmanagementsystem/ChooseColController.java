@@ -47,8 +47,13 @@ public class ChooseColController {
         }
         int[] cols = new int[4];
         Pattern pattern = Pattern.compile("\\d+");
-        Matcher matcher1 = pattern.matcher(numberBox.getValue()), matcher2 = pattern.matcher(nameBox.getValue()),
-                matcher3 = pattern.matcher(genderBox.getValue()), matcher4 = pattern.matcher(classBox.getValue());
+        Matcher matcher1 = pattern.matcher(""), matcher2 = pattern.matcher(""),
+                matcher3 = pattern.matcher(""), matcher4 = pattern.matcher("");
+        if (numberBox.getValue() != null) matcher1 = pattern.matcher(numberBox.getValue());
+        if (nameBox.getValue() != null) matcher2 = pattern.matcher(nameBox.getValue());
+        if (genderBox.getValue() != null) matcher3 = pattern.matcher(genderBox.getValue());
+        if (classBox.getValue() != null) matcher4 = pattern.matcher(classBox.getValue());
+
         if (matcher1.find()) cols[0] = Integer.parseInt(matcher1.group());
         else cols[0] = -1;
         if (matcher2.find()) cols[1] = Integer.parseInt(matcher2.group());
