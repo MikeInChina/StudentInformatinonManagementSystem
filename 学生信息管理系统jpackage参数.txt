@@ -1,0 +1,1 @@
+jpackage -p .\build\distributions\StudentInformationManagementSystem-1.0-SNAPSHOT\lib -m com.wdc.studentinformationmanagementsystem/com.wdc.studentinformationmanagementsystem.StudentInformationManagementSystem --app-version 1.0.0 --win-menu --win-shortcut --win-dir-chooser --icon src/main/resources/com/wdc/studentinformationmanagementsystem/icon.ico

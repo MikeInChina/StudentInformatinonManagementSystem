@@ -17,12 +17,6 @@
             <accelerator>
                 <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
             </accelerator>
-            <MenuItem fx:id="importMenuItem" mnemonicParsing="false" onAction="#load" text="导入(I)">
-                <accelerator>
-                    <KeyCodeCombination alt="UP" code="I" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                </accelerator>
-            </MenuItem>
-            <SeparatorMenuItem mnemonicParsing="false" />
             <Menu mnemonicParsing="false" text="设置(S)">
                 <accelerator>
                     <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
@@ -39,17 +33,18 @@
         </Menu>
     </MenuBar>
     <ToolBar prefHeight="40.0" prefWidth="200.0">
-        <Button fx:id="newRowBtn" mnemonicParsing="false" onAction="#createRow" prefWidth="60.0" text="新增行" />
-        <Button fx:id="delRow" mnemonicParsing="false" onAction="#delRow" prefWidth="60.0" text="删除行" />
-        <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#search" prefWidth="60.0" text="查找" />
+        <Button fx:id="newRowBtn" mnemonicParsing="false" onAction="#createRow" prefWidth="112.0" text="新增学生数据" />
+        <Button fx:id="delRow" mnemonicParsing="false" onAction="#delRow" prefWidth="112.0" text="删除学生数据" />
+        <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#search" prefWidth="112.0" text="查找" />
+      <Button fx:id="importBtn" mnemonicParsing="false" onAction="#load" prefWidth="112.0" text="批量导入学生数据" />
     </ToolBar>
     <TableView fx:id="form" prefHeight="536.0" prefWidth="800.0">
         <columns>
-          <TableColumn fx:id="number" prefWidth="100.0" text="序号" />
-          <TableColumn fx:id="name" prefWidth="100.0" text="姓名" />
-          <TableColumn fx:id="gender" prefWidth="100.0" text="性别" />
-          <TableColumn fx:id="studentNumber" prefWidth="100.0" text="学号" />
-          <TableColumn fx:id="classCol" prefWidth="100.0" text="班级" />
+          <TableColumn fx:id="number" prefWidth="150.0" text="序号" />
+          <TableColumn fx:id="name" prefWidth="150.0" text="姓名" />
+          <TableColumn fx:id="gender" prefWidth="150.0" text="性别" />
+          <TableColumn fx:id="studentNumber" prefWidth="150.0" text="学号" />
+          <TableColumn fx:id="classCol" prefWidth="150.0" text="班级" />
         </columns>
     </TableView>
 </VBox>

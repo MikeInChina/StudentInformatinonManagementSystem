@@ -24,8 +24,6 @@ public class MainController implements Initializable {
 	@FXML
 	private MenuItem changeAccountMenuItem;
 	@FXML
-	private MenuItem importMenuItem;
-	@FXML
 	private Button delRow;
 	@FXML
 	private Button newRowBtn;
@@ -188,7 +186,6 @@ public class MainController implements Initializable {
 		delRow.setDisable(true);
 		newRowBtn.setDisable(true);
 		searchBtn.setDisable(true);
-		importMenuItem.setDisable(true);
 		changeAccountMenuItem.setDisable(true);
 		Value.isAdmin = false;
 	}
