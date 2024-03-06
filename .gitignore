@@ -5,7 +5,7 @@ build/
 !**/src/test/**/build/
 
 StudentInformationManagementSystem-1.0.0Setup.exe
-data/
+/data/
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
