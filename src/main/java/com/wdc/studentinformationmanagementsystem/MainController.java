@@ -22,6 +22,12 @@ import java.util.Vector;
  */
 public class MainController implements Initializable {
 	@FXML
+	public Button importBtn;
+	@FXML
+	public Button exportBtn;
+	@FXML
+	public Button modeSwitcher;
+	@FXML
 	private MenuItem changeAccountMenuItem;
 	@FXML
 	private Button delRow;
@@ -41,6 +47,8 @@ public class MainController implements Initializable {
 	public TableColumn<Student, String> classCol;
 	@FXML
 	public TableColumn<Student, String> gender;
+
+	Boolean isSingleSelectionMode = true;
 
 	public static Stage getStageFromLoader(FXMLLoader loader, double width, double height) {
 		Scene scene;
@@ -66,7 +74,8 @@ public class MainController implements Initializable {
 			form.getItems().add(student);
 			Value.addStudent(student);
 			stage.close();
-			Alert alert = Value.createAlert(Alert.AlertType.INFORMATION, "学生信息管理系统-提示", "创建成功！");
+			Alert alert = Value.createAlert(Alert.AlertType.INFORMATION, "学生信息管理系统-提示",
+					"创建成功！");
 			alert.showAndWait();
 		});
 		stage.setTitle("学生信息管理系统-请输入");
@@ -76,16 +85,35 @@ public class MainController implements Initializable {
 
 	@FXML
 	void delRow(ActionEvent event) {
-		int index = form.getSelectionModel().getSelectedIndex();
-		if (index == -1) return;
-		Alert alert = Value.createAlert(Alert.AlertType.CONFIRMATION, "学生信息管理系统-询问",
-				"是否要删除第 " + (index + 1) + " 行?");
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.isPresent() && result.get().equals(ButtonType.OK)){
-			form.getItems().remove(index);
-			Value.students.remove(index);
-			Alert info = Value.createAlert(Alert.AlertType.INFORMATION, "学生信息管理系统-提示", "删除成功！");
-			info.showAndWait();
+		if (isSingleSelectionMode){
+			int index = form.getSelectionModel().getSelectedIndex();
+			if (index == -1) return;
+			Alert alert = Value.createAlert(Alert.AlertType.CONFIRMATION, "学生信息管理系统-询问",
+					"是否要删除第 " + (index + 1) + " 行?");
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.isPresent() && result.get().equals(ButtonType.OK)){
+				form.getItems().remove(index);
+				Value.students.remove(index);
+				Alert info = Value.createAlert(Alert.AlertType.INFORMATION, "学生信息管理系统-提示",
+						"删除成功！");
+				info.showAndWait();
+			}
+		}else {
+			Alert alert = Value.createAlert(Alert.AlertType.CONFIRMATION, "学生信息管理系统-询问",
+					"是否要删除选中的所有行？");
+			Optional<ButtonType> result = alert.showAndWait();
+			Vector<Integer> indexes = new Vector<>(form.getSelectionModel().getSelectedIndices().stream().toList());
+			if (indexes.isEmpty()) return;
+			if (result.isPresent() && result.get().equals(ButtonType.OK)){
+				for (int i = indexes.size() - 1; i >= 0; i--) {
+					int index = indexes.get(i);
+					form.getItems().remove(index);
+					Value.students.remove(index);
+				}
+				Alert info = Value.createAlert(Alert.AlertType.INFORMATION, "学生信息管理系统-提示",
+						"删除成功！");
+				info.showAndWait();
+			}
 		}
 	}
 
@@ -97,7 +125,7 @@ public class MainController implements Initializable {
 		stage.setTitle("学生信息管理系统-搜索");
 		stage.show();
 	}
-
+	@FXML
 	public void load(ActionEvent actionEvent) {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("学生信息管理系统-选择文件");
@@ -152,6 +180,36 @@ public class MainController implements Initializable {
 		stage.show();
 	}
 
+	@SuppressWarnings("ResultOfMethodCallIgnored")
+	@FXML
+	public void save(ActionEvent actionEvent) {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("学生信息管理系统-选择文件");
+		FileChooser.ExtensionFilter extensionFilter =
+				new FileChooser.ExtensionFilter("文本文件(*.txt)", "*.txt");
+		fileChooser.getExtensionFilters().add(extensionFilter);
+		File selectedFile = fileChooser.showSaveDialog(StudentInformationManagementSystem.primaryStage);
+		if (selectedFile != null){
+			int index = 0;
+			try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(selectedFile),
+					StandardCharsets.UTF_8))){
+				selectedFile.createNewFile();
+				for (Student s : Value.students){
+					// 学号 姓名 性别 班级
+					bw.write("%s %s %s %s".formatted(s.studentNumber, s.name, s.gender, s.shift));
+					bw.newLine();
+					index++;
+				}
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+			Alert alert = Value.createAlert(Alert.AlertType.INFORMATION, "学生信息管理系统-提示",
+					"成功保存%d条学生数据！".formatted(index));
+			alert.showAndWait();
+		}
+
+	}
+
 	@FXML
 	void changeAccount(ActionEvent event) {
 		FXMLLoader loader = new FXMLLoader(StudentInformationManagementSystem.class
@@ -170,11 +228,10 @@ public class MainController implements Initializable {
 		stage.show();
 	}
 
-
+	@FXML
 	public void exit(ActionEvent actionEvent) {
 		System.exit(0);
 	}
-
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		Value.initForm(form, number, name, gender, classCol, studentNumber);
@@ -188,5 +245,18 @@ public class MainController implements Initializable {
 		searchBtn.setDisable(true);
 		changeAccountMenuItem.setDisable(true);
 		Value.isAdmin = false;
+	}
+	@FXML
+	public void switchMode(ActionEvent actionEvent) {
+		if (form.getSelectionModel().getSelectionMode().equals(SelectionMode.SINGLE)){
+			delRow.setText("批量删除学生数据");
+			modeSwitcher.setText("切换到单选模式");
+			form.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		}else {
+			delRow.setText("删除学生数据");
+			modeSwitcher.setText("切换到多选模式");
+			form.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		}
+		isSingleSelectionMode = !isSingleSelectionMode;
 	}
 }

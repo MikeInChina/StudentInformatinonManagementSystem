@@ -79,7 +79,6 @@ public class Value {
 				// 学号 姓名 性别 班级
 				bw.write("%s %s %s %s".formatted(s.studentNumber, s.name, s.gender, s.shift));
 				bw.newLine();
-				bw.flush();
 			}
 			bw.close();
 			File studentAccountFile = new File("data/" + studentAccount + ".txt");
