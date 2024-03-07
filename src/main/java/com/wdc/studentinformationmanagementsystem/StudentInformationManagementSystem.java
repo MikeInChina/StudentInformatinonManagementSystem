@@ -20,7 +20,8 @@ import static com.wdc.studentinformationmanagementsystem.Value.icon;
  * @see LoginController
  */
 public class StudentInformationManagementSystem extends Application {
-	static Stage primaryStage;
+	public static Stage primaryStage;
+	public static MainController mainController;
 	@Override
 	public void start(Stage stage) throws IOException {
 		StudentInformationManagementSystem.primaryStage = stage;
@@ -46,6 +47,7 @@ public class StudentInformationManagementSystem extends Application {
 				.class.getResource("main-view.fxml"));
 		Scene main = new Scene(mainFXML.load(), 800, 600);
 		primaryStage.setScene(main);
+		mainController = mainFXML.getController();
 		Screen screen = Screen.getPrimary();
 		Rectangle2D rectangle2d = screen.getBounds();
 		primaryStage.setX(rectangle2d.getWidth()/2 - 400);
@@ -58,7 +60,7 @@ public class StudentInformationManagementSystem extends Application {
 	/**
 	 * Shutdown Hook
 	 */
-	private class Hook extends Thread {
+	private static class Hook extends Thread {
 		@Override
 		public void run() {
 			Value.saveVars();

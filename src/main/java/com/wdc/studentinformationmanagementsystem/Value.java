@@ -141,6 +141,11 @@ public class Value {
 			Student student = t.getTableView().getItems().get(t.getTablePosition().getRow());
 			student.setName(t.getNewValue());
 		});
+		number.setSortable(false);
+		studentNumber.setSortable(false);
+		classCol.setSortable(false);
+		gender.setSortable(false);
+		name.setSortable(false);
 	}
 	public static int hash(String s){
 		return Objects.hash(s);

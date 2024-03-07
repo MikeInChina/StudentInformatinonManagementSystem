@@ -50,6 +50,14 @@ public class MainController implements Initializable {
 
 	Boolean isSingleSelectionMode = true;
 
+	public TableView<Student> getForm() {
+		return form;
+	}
+
+	public void setForm(TableView<Student> form) {
+		this.form = form;
+	}
+
 	public static Stage getStageFromLoader(FXMLLoader loader, double width, double height) {
 		Scene scene;
 		try {

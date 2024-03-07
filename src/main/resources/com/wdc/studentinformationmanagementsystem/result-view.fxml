@@ -27,10 +27,8 @@
       </font>
    </Label>
    <ToolBar prefHeight="40.0" prefWidth="200.0">
-     <items>
-       <Button mnemonicParsing="false" onAction="#delSelected" prefWidth="120.0" text="删除选中学生信息" />
-         <Button mnemonicParsing="false" onAction="#delAll" prefWidth="120.0" text="删除所有学生信息" />
-     </items>
+      <Button mnemonicParsing="false" onAction="#delSelected" prefWidth="120.0" text="删除选中学生信息"/>
+      <Button mnemonicParsing="false" onAction="#delAll" prefWidth="120.0" text="删除所有学生信息"/>
    </ToolBar>
    <TableView fx:id="form" prefHeight="474.0" prefWidth="700.0">
       <columns>
