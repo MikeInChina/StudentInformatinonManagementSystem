@@ -43,19 +43,19 @@ public class StudentInformationManagementSystem extends Application {
 		Runtime.getRuntime().addShutdownHook(new Hook());
 	}
 	public static void setMainScene(boolean isAdmin) throws IOException {
+		Value.isAdmin = isAdmin;
 		FXMLLoader mainFXML = new FXMLLoader(StudentInformationManagementSystem
 				.class.getResource("main-view.fxml"));
 		Scene main = new Scene(mainFXML.load(), 800, 600);
 		primaryStage.setScene(main);
 		mainController = mainFXML.getController();
+		if (!isAdmin){
+			mainController.notAdmin();
+		}
 		Screen screen = Screen.getPrimary();
 		Rectangle2D rectangle2d = screen.getBounds();
 		primaryStage.setX(rectangle2d.getWidth()/2 - 400);
 		primaryStage.setY(rectangle2d.getHeight()/2 - 300);
-		if (!isAdmin){
-			MainController mainController = mainFXML.getController();
-			mainController.notAdmin();
-		}
 	}
 	/**
 	 * Shutdown Hook

@@ -243,8 +243,17 @@ public class MainController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		Value.initForm(form, number, name, gender, classCol, studentNumber);
-		for (Student s : Value.students){
-			form.getItems().add(s);
+		if (Value.isAdmin){
+			for (Student s : Value.students){
+				form.getItems().add(s);
+			}
+		}else {
+			for (Student s : Value.students){
+				if (s.studentNumber.equals(Value.studentAccount)){
+					form.getItems().add(s);
+					break;
+				}
+			}
 		}
 	}
 	public void notAdmin(){
@@ -252,7 +261,10 @@ public class MainController implements Initializable {
 		newRowBtn.setDisable(true);
 		searchBtn.setDisable(true);
 		changeAccountMenuItem.setDisable(true);
-		Value.isAdmin = false;
+		importBtn.setDisable(true);
+		exportBtn.setDisable(true);
+		modeSwitcher.setDisable(true);
+		StudentInformationManagementSystem.primaryStage.setTitle("学生信息管理系统-学生登录");
 	}
 	@FXML
 	public void switchMode(ActionEvent actionEvent) {
