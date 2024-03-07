@@ -1,28 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wdc.studentinformationmanagementsystem.ResultSceneController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wdc.studentinformationmanagementsystem.ResultSceneController">
    <Label fx:id="title" text="搜索结果">
       <font>
          <Font size="18.0" />
       </font>
       <VBox.margin>
-         <Insets top="10.0" />
+         <Insets bottom="10.0" top="10.0" />
       </VBox.margin>
    </Label>
+   <Label fx:id="numOfInfo" text="搜索到0条信息">
+      <VBox.margin>
+         <Insets bottom="10.0" />
+      </VBox.margin>
+      <font>
+         <Font size="15.0" />
+      </font>
+   </Label>
+   <ToolBar prefHeight="40.0" prefWidth="200.0">
+     <items>
+       <Button mnemonicParsing="false" onAction="#delSelected" prefWidth="120.0" text="删除选中学生信息" />
+         <Button mnemonicParsing="false" onAction="#delAll" prefWidth="120.0" text="删除所有学生信息" />
+     </items>
+   </ToolBar>
    <TableView fx:id="form" prefHeight="474.0" prefWidth="700.0">
       <columns>
-         <TableColumn fx:id="number" prefWidth="75.0" text="序号" />
-         <TableColumn fx:id="name" prefWidth="75.0" text="姓名" />
-         <TableColumn fx:id="gender" prefWidth="75.0" text="性别" />
-         <TableColumn fx:id="studentNumber" prefWidth="75.0" text="学号" />
-         <TableColumn fx:id="classCol" prefWidth="75.0" text="班级" />
+         <TableColumn fx:id="number" prefWidth="140.0" text="序号" />
+         <TableColumn fx:id="name" prefWidth="140.0" text="姓名" />
+         <TableColumn fx:id="gender" prefWidth="140.0" text="性别" />
+         <TableColumn fx:id="studentNumber" prefWidth="140.0" text="学号" />
+         <TableColumn fx:id="classCol" prefWidth="140.0" text="班级" />
       </columns>
    </TableView>
 </VBox>

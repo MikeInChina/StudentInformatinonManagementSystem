@@ -44,7 +44,7 @@ public class LineInformationController {
 		if (student.getStudentNumber().isEmpty()) student.setStudentNumber("-");
 		if (student.getGender().isEmpty()) student.setGender("-");
 		if (student.getName().isEmpty()) student.setName("-");
-		if (student.getShift().isEmpty()) student.setShift("-");
+		if (student.getStudentClass().isEmpty()) student.setStudentClass("-");
 		callBack.onStudentDataReceived(student);
 	}
 

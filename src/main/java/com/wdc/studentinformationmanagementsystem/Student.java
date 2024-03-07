@@ -4,21 +4,20 @@ public class Student {
 	public String studentNumber;
 	public String name;
 	public String gender;
-	public String shift;
+	public String studentClass;
 
 	/**
 	 * @param studentNumber 学号
-	 * @param name 姓名
-	 * @param gender 性别
-	 * @param shift 班级<br>
-	 * (shift也有班级之意)
+	 * @param name          姓名
+	 * @param gender        性别
+	 * @param studentClass  班级
 	 */
 
-	public Student(String studentNumber, String name, String gender, String shift) {
+	public Student(String studentNumber, String name, String gender, String studentClass) {
 		this.studentNumber = studentNumber;
 		this.name = name;
 		this.gender = gender;
-		this.shift = shift;
+		this.studentClass = studentClass;
 	}
 
 	public String getStudentNumber() {
@@ -50,11 +49,11 @@ public class Student {
 		this.gender = gender;
 	}
 
-	public String getShift() {
-		return shift;
+	public String getStudentClass() {
+		return studentClass;
 	}
 
-	public void setShift(String shift) {
-		this.shift = shift;
+	public void setStudentClass(String studentClass) {
+		this.studentClass = studentClass;
 	}
 }

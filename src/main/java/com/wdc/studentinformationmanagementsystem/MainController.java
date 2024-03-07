@@ -22,11 +22,11 @@ import java.util.Vector;
  */
 public class MainController implements Initializable {
 	@FXML
-	public Button importBtn;
+	private Button importBtn;
 	@FXML
-	public Button exportBtn;
+	private Button exportBtn;
 	@FXML
-	public Button modeSwitcher;
+	private Button modeSwitcher;
 	@FXML
 	private MenuItem changeAccountMenuItem;
 	@FXML
@@ -36,17 +36,17 @@ public class MainController implements Initializable {
 	@FXML
 	private Button searchBtn;
 	@FXML
-	public TableView<Student> form;
+	private TableView<Student> form;
 	@FXML
-	public TableColumn<Student, String> number;
+	private TableColumn<Student, String> number;
 	@FXML
-	public TableColumn<Student, String> name;
+	private TableColumn<Student, String> name;
 	@FXML
-	public TableColumn<Student, String> studentNumber;
+	private TableColumn<Student, String> studentNumber;
 	@FXML
-	public TableColumn<Student, String> classCol;
+	private TableColumn<Student, String> classCol;
 	@FXML
-	public TableColumn<Student, String> gender;
+	private TableColumn<Student, String> gender;
 
 	Boolean isSingleSelectionMode = true;
 
@@ -166,7 +166,7 @@ public class MainController implements Initializable {
 				if (ints[0] != -1) student.setStudentNumber(strings[ints[0]-1]);
 				if (ints[1] != -1) student.setName(strings[ints[1]-1]);
 				if (ints[2] != -1) student.setGender(strings[ints[2]-1]);
-				if (ints[3] != -1) student.setShift(strings[ints[3]-1]);
+				if (ints[3] != -1) student.setStudentClass(strings[ints[3]-1]);
 				form.getItems().add(student);
 				Value.addStudent(student);
 			}
@@ -196,7 +196,7 @@ public class MainController implements Initializable {
 				selectedFile.createNewFile();
 				for (Student s : Value.students){
 					// 学号 姓名 性别 班级
-					bw.write("%s %s %s %s".formatted(s.studentNumber, s.name, s.gender, s.shift));
+					bw.write("%s %s %s %s".formatted(s.studentNumber, s.name, s.gender, s.studentClass));
 					bw.newLine();
 					index++;
 				}

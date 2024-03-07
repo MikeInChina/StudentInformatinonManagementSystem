@@ -77,7 +77,7 @@ public class Value {
 					StandardCharsets.UTF_8));
 			for (Student s : students){
 				// 学号 姓名 性别 班级
-				bw.write("%s %s %s %s".formatted(s.studentNumber, s.name, s.gender, s.shift));
+				bw.write("%s %s %s %s".formatted(s.studentNumber, s.name, s.gender, s.studentClass));
 				bw.newLine();
 			}
 			bw.close();
@@ -118,7 +118,7 @@ public class Value {
 			}
 		});
 		studentNumber.setCellValueFactory(new PropertyValueFactory<>("studentNumber"));
-		classCol.setCellValueFactory(new PropertyValueFactory<>("shift"));
+		classCol.setCellValueFactory(new PropertyValueFactory<>("studentClass"));
 		gender.setCellValueFactory(new PropertyValueFactory<>("gender"));
 		name.setCellValueFactory(new PropertyValueFactory<>("name"));
 		studentNumber.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -129,7 +129,7 @@ public class Value {
 		classCol.setCellFactory(TextFieldTableCell.forTableColumn());
 		classCol.setOnEditCommit((TableColumn.CellEditEvent<Student, String> t) -> {
 			Student student = t.getTableView().getItems().get(t.getTablePosition().getRow());
-			student.setShift(t.getNewValue());
+			student.setStudentClass(t.getNewValue());
 		});
 		gender.setCellFactory(TextFieldTableCell.forTableColumn());
 		gender.setOnEditCommit((TableColumn.CellEditEvent<Student, String> t) -> {
