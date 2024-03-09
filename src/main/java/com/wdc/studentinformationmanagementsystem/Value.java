@@ -5,13 +5,14 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Objects;
+import java.util.Vector;
 
 public class Value {
 	public static int adminAccount = hash("admin");
@@ -22,6 +23,7 @@ public class Value {
 					.getResource("icon.png")).toString());
 	public static boolean isAdmin = true;
 	public static Vector<Student> students = new Vector<>();
+	public static HashMap<String, Student> hashMap = new HashMap<>();
 
 
 	public static void initVars(){
@@ -58,6 +60,7 @@ public class Value {
 					}
 					// 学号 姓名 性别 班级
 					students.add(new Student(properties[0], properties[1], properties[2], properties[3]));
+					hashMap.put(properties[0], students.lastElement());
 				}
 				br.close();
 			}
@@ -99,8 +102,16 @@ public class Value {
 		((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().setAll(icon);
 		return alert;
 	}
-	public static void addStudent(Student s){
+	public static boolean addStudent(Student s, TableView<Student> form){
+		String number = s.getStudentNumber();
+		if (hashMap.containsKey(number)){
+			return false;
+		}else {
+			hashMap.put(number, s);
+		}
+		form.getItems().add(s);
 		students.add(s);
+		return true;
 	}
 	public static void initForm(TableView<Student> form, TableColumn<Student, String> number,
 	                            TableColumn<Student, String> name, TableColumn<Student, String> gender,
@@ -121,26 +132,6 @@ public class Value {
 		classCol.setCellValueFactory(new PropertyValueFactory<>("studentClass"));
 		gender.setCellValueFactory(new PropertyValueFactory<>("gender"));
 		name.setCellValueFactory(new PropertyValueFactory<>("name"));
-		studentNumber.setCellFactory(TextFieldTableCell.forTableColumn());
-		studentNumber.setOnEditCommit((TableColumn.CellEditEvent<Student, String> t) -> {
-			Student student = t.getTableView().getItems().get(t.getTablePosition().getRow());
-			student.setStudentNumber(t.getNewValue());
-		});
-		classCol.setCellFactory(TextFieldTableCell.forTableColumn());
-		classCol.setOnEditCommit((TableColumn.CellEditEvent<Student, String> t) -> {
-			Student student = t.getTableView().getItems().get(t.getTablePosition().getRow());
-			student.setStudentClass(t.getNewValue());
-		});
-		gender.setCellFactory(TextFieldTableCell.forTableColumn());
-		gender.setOnEditCommit((TableColumn.CellEditEvent<Student, String> t) -> {
-			Student student = t.getTableView().getItems().get(t.getTablePosition().getRow());
-			student.setGender(t.getNewValue());
-		});
-		name.setCellFactory(TextFieldTableCell.forTableColumn());
-		name.setOnEditCommit((TableColumn.CellEditEvent<Student, String> t) -> {
-			Student student = t.getTableView().getItems().get(t.getTablePosition().getRow());
-			student.setName(t.getNewValue());
-		});
 		number.setSortable(false);
 		studentNumber.setSortable(false);
 		classCol.setSortable(false);

@@ -3,6 +3,7 @@ package com.wdc.studentinformationmanagementsystem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
@@ -41,10 +42,12 @@ public class LineInformationController {
 	void create(ActionEvent event) {
 		Student student = new Student(studentNumberField.getText(), nameField.getText(),
 				genderField.getText(), classField.getText());
-		if (student.getStudentNumber().isEmpty()) student.setStudentNumber("-");
-		if (student.getGender().isEmpty()) student.setGender("-");
-		if (student.getName().isEmpty()) student.setName("-");
-		if (student.getStudentClass().isEmpty()) student.setStudentClass("-");
+		if (student.getName().isEmpty() || student.getStudentNumber().isEmpty() || student.getGender().isEmpty() ||
+				student.getStudentClass().isEmpty()){
+			Alert alert = Value.createAlert(Alert.AlertType.ERROR, "学生信息管理系统-提示", "学生信息不能为空！");
+			alert.showAndWait();
+			return;
+		}
 		callBack.onStudentDataReceived(student);
 	}
 

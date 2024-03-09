@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -54,10 +55,6 @@ public class MainController implements Initializable {
 		return form;
 	}
 
-	public void setForm(TableView<Student> form) {
-		this.form = form;
-	}
-
 	public static Stage getStageFromLoader(FXMLLoader loader, double width, double height) {
 		Scene scene;
 		try {
@@ -79,12 +76,14 @@ public class MainController implements Initializable {
 		Stage stage = getStageFromLoader(loader, 400, 200);
 		LineInformationController lineInformationController = loader.getController();
 		lineInformationController.setCallBack((student) -> {
-			form.getItems().add(student);
-			Value.addStudent(student);
-			stage.close();
-			Alert alert = Value.createAlert(Alert.AlertType.INFORMATION, "学生信息管理系统-提示",
-					"创建成功！");
+			boolean result = Value.addStudent(student, form);
+			Alert alert;
+			if (result) alert = Value.createAlert(Alert.AlertType.INFORMATION, "学生信息管理系统-提示",
+						"添加学生信息成功！");
+			else alert = Value.createAlert(Alert.AlertType.WARNING, "学生信息管理系统-提示",
+						"添加失败，学号须唯一");
 			alert.showAndWait();
+			stage.close();
 		});
 		stage.setTitle("学生信息管理系统-请输入");
 		stage.show();
@@ -165,7 +164,8 @@ public class MainController implements Initializable {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-
+		final int[] failCnt = {0};
+		final int[] succeedCnt = {0};
 		ChooseColController controller = loader.getController();
 		controller.setCols(information.get(0));
 		controller.setDataCallBack((ints) -> {
@@ -175,9 +175,13 @@ public class MainController implements Initializable {
 				if (ints[1] != -1) student.setName(strings[ints[1]-1]);
 				if (ints[2] != -1) student.setGender(strings[ints[2]-1]);
 				if (ints[3] != -1) student.setStudentClass(strings[ints[3]-1]);
-				form.getItems().add(student);
-				Value.addStudent(student);
+				boolean result = Value.addStudent(student, form);
+				if (!result) failCnt[0]++;
+				else succeedCnt[0]++;
 			}
+			Alert alert = Value.createAlert(Alert.AlertType.INFORMATION, "学生信息管理系统-提示",
+					"已成功添加%d条学生信息，因学号重复而未成功添加%d条".formatted(succeedCnt[0], failCnt[0]));
+			alert.showAndWait();
 		});
 
 		Stage stage = new Stage();
@@ -244,6 +248,23 @@ public class MainController implements Initializable {
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		Value.initForm(form, number, name, gender, classCol, studentNumber);
 		if (Value.isAdmin){
+			classCol.setCellFactory(TextFieldTableCell.forTableColumn());
+			classCol.setOnEditCommit((TableColumn.CellEditEvent<Student, String> t) -> {
+				Student student = t.getTableView().getItems().get(t.getTablePosition().getRow());
+				student.setStudentClass(t.getNewValue());
+			});
+			gender.setCellFactory(TextFieldTableCell.forTableColumn());
+			gender.setOnEditCommit((TableColumn.CellEditEvent<Student, String> t) -> {
+				Student student = t.getTableView().getItems().get(t.getTablePosition().getRow());
+				student.setGender(t.getNewValue());
+			});
+			name.setCellFactory(TextFieldTableCell.forTableColumn());
+			name.setOnEditCommit((TableColumn.CellEditEvent<Student, String> t) -> {
+				Student student = t.getTableView().getItems().get(t.getTablePosition().getRow());
+				student.setName(t.getNewValue());
+			});
+		}
+		if (Value.isAdmin){
 			for (Student s : Value.students){
 				form.getItems().add(s);
 			}
@@ -273,10 +294,18 @@ public class MainController implements Initializable {
 			modeSwitcher.setText("切换到单选模式");
 			form.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		}else {
-			delRow.setText("删除学生数据");
+			delRow.setText("删除选中学生数据");
 			modeSwitcher.setText("切换到多选模式");
 			form.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 		}
 		isSingleSelectionMode = !isSingleSelectionMode;
+	}
+
+	public void count(ActionEvent actionEvent) {
+		FXMLLoader fxmlLoader = new FXMLLoader(StudentInformationManagementSystem.class
+				.getResource("statistic-view.fxml"));
+		Stage stage = getStageFromLoader(fxmlLoader, 800, 600);
+		stage.setTitle("学生信息管理系统-统计信息");
+		stage.show();
 	}
 }

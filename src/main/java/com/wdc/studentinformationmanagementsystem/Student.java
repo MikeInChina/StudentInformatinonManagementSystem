@@ -20,6 +20,16 @@ public class Student {
 		this.studentClass = studentClass;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Student student = (Student) o;
+
+		return getStudentNumber().equals(student.getStudentNumber());
+	}
+
 	public String getStudentNumber() {
 		return studentNumber;
 	}

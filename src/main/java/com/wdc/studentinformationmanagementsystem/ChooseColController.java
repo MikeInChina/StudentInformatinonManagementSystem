@@ -4,10 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,21 +36,28 @@ public class ChooseColController {
 
     @FXML
     void ok(ActionEvent event) {
-        if (classBox.getValue() == null || nameBox.getValue() == null || genderBox.getValue() == null
-                || numberBox.getValue() == null){
-            Alert alert = Value.createAlert(Alert.AlertType.CONFIRMATION,
-                    "学生信息管理系统-提示", "有至少1列未选择，是否确认将未选择的列填充为空白？");
-            Optional<ButtonType> option = alert.showAndWait();
-            if (option.isPresent() && option.get() != ButtonType.OK) return;
+        String str1 = classBox.getValue(), str2 = nameBox.getValue(),
+                str3 = genderBox.getValue(), str4 = numberBox.getValue();
+        if (str1 == null || str2 == null || str3 == null || str4 == null){
+            Alert alert = Value.createAlert(Alert.AlertType.ERROR,
+                    "学生信息管理系统-提示", "表格数据列不能为空！");
+            alert.showAndWait();
+            return;
+        }
+        if (str1.equals(str2) || str1.equals(str3) || str1.equals(str4) || str2.equals(str3) ||
+                str2.equals(str4) || str3.equals(str4)){
+            Alert alert = Value.createAlert(Alert.AlertType.ERROR,
+                    "学生信息管理系统-提示", "表格数据列不能重复！");
+            alert.showAndWait();
+            return;
         }
         int[] cols = new int[4];
         Pattern pattern = Pattern.compile("\\d+");
-        Matcher matcher1 = pattern.matcher(""), matcher2 = pattern.matcher(""),
-                matcher3 = pattern.matcher(""), matcher4 = pattern.matcher("");
-        if (numberBox.getValue() != null) matcher1 = pattern.matcher(numberBox.getValue());
-        if (nameBox.getValue() != null) matcher2 = pattern.matcher(nameBox.getValue());
-        if (genderBox.getValue() != null) matcher3 = pattern.matcher(genderBox.getValue());
-        if (classBox.getValue() != null) matcher4 = pattern.matcher(classBox.getValue());
+        Matcher matcher1, matcher2, matcher3, matcher4;
+	    matcher1 = pattern.matcher(str4);
+	    matcher2 = pattern.matcher(str2);
+	    matcher3 = pattern.matcher(str3);
+	    matcher4 = pattern.matcher(str1);
 
         if (matcher1.find()) cols[0] = Integer.parseInt(matcher1.group());
         else cols[0] = -1;
@@ -68,7 +73,7 @@ public class ChooseColController {
 
     public void setCols(String[] row){
 	    for (int i = 0;i < row.length;i++){
-            String item = "第 %d 列，列首数据“%s”".formatted(i+1, row[i]);
+            String item = "第%d列，列首数据“%s”".formatted(i+1, row[i]);
             classBox.getItems().add(item);
             nameBox.getItems().add(item);
             genderBox.getItems().add(item);

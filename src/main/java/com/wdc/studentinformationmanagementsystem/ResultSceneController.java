@@ -33,10 +33,6 @@ public class ResultSceneController implements Initializable {
     
     private final Vector<Integer> indexesOfStudent = new Vector<>();
 
-    public void setTitle(String title) {
-        this.title.setText(title);
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         form.setEditable(true);
@@ -69,7 +65,7 @@ public class ResultSceneController implements Initializable {
                     form.getScene().getWindow().hide();
                     return;
                 }
-                form.getItems().add(new StudentWithNumber(index-1, Value.students.elementAt(index-1)));
+                form.getItems().add(new StudentWithNumber(index, Value.students.elementAt(index-1)));
                 indexesOfStudent.add(index-1);
             }case "姓名" -> {
                 for (int i = 0;i < Value.students.size();i++){
