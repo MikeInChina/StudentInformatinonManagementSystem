@@ -140,8 +140,15 @@ public class MainController implements Initializable {
 				new FileChooser.ExtensionFilter("文本文件(*.txt)", "*.txt");
 		fileChooser.getExtensionFilters().add(extensionFilter);
 
+		File studentsFile = new File("data/students.txt");
 		File selectedFile = fileChooser.showOpenDialog(StudentInformationManagementSystem.primaryStage);
 		if (selectedFile == null) return;
+		if (selectedFile.getAbsolutePath().equals(studentsFile.getAbsolutePath())){
+			Alert alert = Value.createAlert(Alert.AlertType.ERROR, "学生信息管理系统-提示",
+					"不能导入本系统的信息存储文件！");
+			alert.showAndWait();
+			return;
+		}
 
 		Vector<String[]> information = new Vector<>();
 
