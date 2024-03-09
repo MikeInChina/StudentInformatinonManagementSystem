@@ -123,6 +123,10 @@ public class Value {
 		students.add(s);
 		return true;
 	}
+	public static void removeStudent(int index){
+		hashMap.remove(students.get(index).studentNumber);
+		students.remove(index);
+	}
 	public static void initForm(TableView<Student> form, TableColumn<Student, String> number,
 	                            TableColumn<Student, String> name, TableColumn<Student, String> gender,
 	                            TableColumn<Student, String> classCol, TableColumn<Student, String> studentNumber){

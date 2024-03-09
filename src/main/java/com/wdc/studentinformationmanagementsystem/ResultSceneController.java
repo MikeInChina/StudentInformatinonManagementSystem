@@ -116,7 +116,7 @@ public class ResultSceneController implements Initializable {
                 "是否要删除第 " + (indexesOfStudent.elementAt(index) + 1) + " 学生信息?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get().equals(ButtonType.OK)){
-            Value.students.remove(indexesOfStudent.elementAt(index).intValue());
+            Value.removeStudent(indexesOfStudent.elementAt(index));
             StudentInformationManagementSystem.mainController.getForm().getItems()
                     .remove(indexesOfStudent.elementAt(index).intValue());
             for (int i = index; i < indexesOfStudent.size(); i++) {
@@ -138,7 +138,7 @@ public class ResultSceneController implements Initializable {
         if (result.isPresent() && result.get().equals(ButtonType.OK)){
             for (int i = indexesOfStudent.size()-1; i >= 0; i--) {
                 form.getItems().remove(i);
-                Value.students.remove(indexesOfStudent.elementAt(i).intValue());
+                Value.removeStudent(indexesOfStudent.elementAt(i));
                 StudentInformationManagementSystem.mainController.getForm().getItems()
                         .remove(indexesOfStudent.elementAt(i).intValue());
                 indexesOfStudent.remove(i);

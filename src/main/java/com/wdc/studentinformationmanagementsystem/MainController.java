@@ -83,7 +83,7 @@ public class MainController implements Initializable {
 			else alert = Value.createAlert(Alert.AlertType.WARNING, "学生信息管理系统-提示",
 						"添加失败，学号须唯一！");
 			alert.showAndWait();
-			stage.close();
+			if (result) stage.close();
 		});
 		stage.setTitle("学生信息管理系统-请输入");
 		stage.show();
@@ -100,7 +100,7 @@ public class MainController implements Initializable {
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.isPresent() && result.get().equals(ButtonType.OK)){
 				form.getItems().remove(index);
-				Value.students.remove(index);
+				Value.removeStudent(index);
 				Alert info = Value.createAlert(Alert.AlertType.INFORMATION, "学生信息管理系统-提示",
 						"删除成功！");
 				info.showAndWait();
@@ -115,7 +115,7 @@ public class MainController implements Initializable {
 				for (int i = indexes.size() - 1; i >= 0; i--) {
 					int index = indexes.get(i);
 					form.getItems().remove(index);
-					Value.students.remove(index);
+					Value.removeStudent(index);
 				}
 				Alert info = Value.createAlert(Alert.AlertType.INFORMATION, "学生信息管理系统-提示",
 						"删除成功！");
