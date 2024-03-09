@@ -6,18 +6,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.PieChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.Label;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StatisticsController implements Initializable {
     @FXML
-    private BarChart<String, Integer> classChart;
+    private BarChart<String, Number> classChart;
     @FXML
     private CategoryAxis classChartCategory;
     @FXML
@@ -42,11 +41,37 @@ public class StatisticsController implements Initializable {
         double malePercentage = (double) numOfMale / (numOfMale + numOfFemale);
         double femalePercentage = 1.0 - malePercentage;
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data("男", numOfMale),
-                new PieChart.Data("女", numOfFemale)
+                new PieChart.Data("男：%d人".formatted(numOfMale), numOfMale),
+                new PieChart.Data("女：%d人".formatted(numOfFemale), numOfFemale)
         );
         genderChart.setStartAngle(270);
         genderChart.setData(pieChartData);
         infoLabel.setText("男：%.2f%%    女:%.2f%%".formatted(malePercentage * 100, femalePercentage*100));
+
+        int[] grades = new int[32];
+        int[] classes = new int[256];
+        int[][] nums = new int[32][256];
+        for(Student s : Value.students){
+            String classStr = s.getStudentClass();
+            Pattern pattern = Pattern.compile("(\\d+)年(\\d+)班");
+            Matcher matcher = pattern.matcher(classStr);
+            if (matcher.find()){
+                int grade = Integer.parseInt(matcher.group(1)); // 提取年级信息
+                int clazz = Integer.parseInt(matcher.group(2)); // 提取班级信息
+                grades[grade]++;
+                classes[clazz]++;
+                nums[grade][clazz]++;
+            }
+        }
+        for(int c = 0;c < classes.length;c++){
+            if (classes[c] == 0) continue;
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            series.setName("%d班".formatted(c));
+            for(int g = 0;g < grades.length;g++){
+                if (grades[g] == 0) continue;
+                series.getData().add(new XYChart.Data<>("%d年级".formatted(g), nums[g][c]));
+            }
+            classChart.getData().add(series);
+        }
     }
 }
