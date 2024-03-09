@@ -5,9 +5,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.chart.*;
 import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -72,6 +76,15 @@ public class StatisticsController implements Initializable {
                 series.getData().add(new XYChart.Data<>("%d年级".formatted(g), nums[g][c]));
             }
             classChart.getData().add(series);
+            for (XYChart.Data<String, Number> data : series.getData()) {
+                Label text = new Label(data.getYValue().toString());
+                StackPane stackPane = (StackPane)data.getNode();
+                text.setTranslateY(-15);
+                text.setFont(new Font(10));
+                text.setTextFill(Color.gray(0.3));
+                stackPane.getChildren().add(text);
+                StackPane.setAlignment(text, Pos.TOP_CENTER);
+            }
         }
     }
 }
