@@ -55,6 +55,7 @@ public class StatisticsController implements Initializable {
         int[] grades = new int[32];
         int[] classes = new int[256];
         int[][] nums = new int[32][256];
+        int maxNumber = -1;
         for(Student s : Value.students){
             String classStr = s.getStudentClass();
             Pattern pattern = Pattern.compile("(\\d+)年(\\d+)班");
@@ -74,6 +75,7 @@ public class StatisticsController implements Initializable {
             for(int g = 0;g < grades.length;g++){
                 if (grades[g] == 0) continue;
                 series.getData().add(new XYChart.Data<>("%d年级".formatted(g), nums[g][c]));
+                maxNumber = Math.max(nums[g][c], maxNumber);
             }
             classChart.getData().add(series);
             for (XYChart.Data<String, Number> data : series.getData()) {
@@ -87,6 +89,6 @@ public class StatisticsController implements Initializable {
             }
         }
         classChartNumber.setAutoRanging(false);
-        classChartNumber.setUpperBound(120);
+        classChartNumber.setUpperBound(maxNumber*1.1);
     }
 }
