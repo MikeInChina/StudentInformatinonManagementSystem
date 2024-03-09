@@ -60,7 +60,7 @@ public class ResultSceneController implements Initializable {
                     index = Integer.parseInt(value);
                 } catch (NumberFormatException e) {
                     Alert alert = Value.createAlert(Alert.AlertType.ERROR, "学生信息管理系统-错误",
-                            "输入的序号不是数字");
+                            "输入的序号不是数字！");
                     alert.showAndWait();
                     form.getScene().getWindow().hide();
                     return;
@@ -113,7 +113,7 @@ public class ResultSceneController implements Initializable {
         int index = form.getSelectionModel().getSelectedIndex();
         if (index == -1) return;
         Alert alert = Value.createAlert(Alert.AlertType.CONFIRMATION, "学生信息管理系统-询问",
-                "是否要删除第 " + (indexesOfStudent.elementAt(index) + 1) + " 行?");
+                "是否要删除第 " + (indexesOfStudent.elementAt(index) + 1) + " 学生信息?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get().equals(ButtonType.OK)){
             Value.students.remove(indexesOfStudent.elementAt(index).intValue());
@@ -133,7 +133,7 @@ public class ResultSceneController implements Initializable {
     @FXML
     public void delAll(ActionEvent actionEvent){
         Alert alert = Value.createAlert(Alert.AlertType.CONFIRMATION, "学生信息管理系统-询问",
-                "是否要删除 \"%s\" 中包含 \"%s\" 的所有行？".formatted(key, value));
+                "是否要删除 \"%s\" 中包含 \"%s\" 的所有学生信息？".formatted(key, value));
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get().equals(ButtonType.OK)){
             for (int i = indexesOfStudent.size()-1; i >= 0; i--) {

@@ -15,9 +15,9 @@ import static com.wdc.studentinformationmanagementsystem.Value.icon;
  * 作者：王墩灿 <br>
  * 学校：广州开发区外国语学校 <br>
  * 班级：初二（1）班 <br>
- * 主程序，程序的入口。<br>
- * 登录界面控制器是LoginController
- * @see LoginController
+ * 指导老师：陈桂桦老师 <br>
+ * <br>
+ * 主程序，程序的入口。
  */
 public class StudentInformationManagementSystem extends Application {
 	public static Stage primaryStage;

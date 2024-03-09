@@ -10,9 +10,6 @@ import javafx.scene.control.TextField;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-/**
- * 登录界面的控制器类，控制登录界面的事件处理
- */
 public class LoginController {
 
 	@FXML

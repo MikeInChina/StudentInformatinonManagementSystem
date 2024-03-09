@@ -13,6 +13,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Value {
 	public static int adminAccount = hash("admin");
@@ -104,11 +106,17 @@ public class Value {
 	}
 	public static boolean addStudent(Student s, TableView<Student> form){
 		String number = s.getStudentNumber();
-		if (hashMap.containsKey(number)){
-			return false;
-		}else {
-			hashMap.put(number, s);
-		}
+		if (hashMap.containsKey(number)) return false;
+		else hashMap.put(number, s);
+
+		Pattern patternForGender = Pattern.compile("^([男女])$");
+		Matcher matcherForGender = patternForGender.matcher(s.getGender());
+		if (!matcherForGender.find()) return false;
+
+		Pattern patternForClass = Pattern.compile("^(\\d+年\\d+班)$");
+		Matcher matcherForClass = patternForClass.matcher(s.getStudentClass());
+		if (!matcherForClass.find()) return false;
+
 		form.getItems().add(s);
 		students.add(s);
 		return true;
@@ -123,9 +131,7 @@ public class Value {
 				super.updateItem(item, empty);
 				this.setText(null);
 				this.setGraphic(null);
-				if (!empty) {
-					this.setText(String.valueOf(this.getIndex() + 1));
-				}
+				if (!empty) this.setText(String.valueOf(this.getIndex() + 1));
 			}
 		});
 		studentNumber.setCellValueFactory(new PropertyValueFactory<>("studentNumber"));

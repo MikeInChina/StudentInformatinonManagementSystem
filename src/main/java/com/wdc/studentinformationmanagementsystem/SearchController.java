@@ -27,7 +27,7 @@ public class SearchController implements Initializable {
 	void ok(ActionEvent event) {
 		String chosen = option.getValue();
 		if (chosen == null){
-			Alert alert = Value.createAlert(Alert.AlertType.ERROR, "学生信息管理系统-提示", "请选择查找的类别");
+			Alert alert = Value.createAlert(Alert.AlertType.ERROR, "学生信息管理系统-提示", "请选择查找的类别！");
 			alert.showAndWait();
 			return;
 		}

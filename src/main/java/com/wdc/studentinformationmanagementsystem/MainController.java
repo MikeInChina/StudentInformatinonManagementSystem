@@ -81,7 +81,7 @@ public class MainController implements Initializable {
 			if (result) alert = Value.createAlert(Alert.AlertType.INFORMATION, "学生信息管理系统-提示",
 						"添加学生信息成功！");
 			else alert = Value.createAlert(Alert.AlertType.WARNING, "学生信息管理系统-提示",
-						"添加失败，学号须唯一");
+						"添加失败，学号须唯一！");
 			alert.showAndWait();
 			stage.close();
 		});
@@ -180,7 +180,7 @@ public class MainController implements Initializable {
 				else succeedCnt[0]++;
 			}
 			Alert alert = Value.createAlert(Alert.AlertType.INFORMATION, "学生信息管理系统-提示",
-					"已成功添加%d条学生信息，因学号重复而未成功添加%d条".formatted(succeedCnt[0], failCnt[0]));
+					"已成功添加%d条学生信息，因学号重复或格式不符合要求而未成功添加%d条。".formatted(succeedCnt[0], failCnt[0]));
 			alert.showAndWait();
 		});
 
