@@ -9,38 +9,34 @@
 <?import javafx.scene.text.Font?>
 
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wdc.studentinformationmanagementsystem.SearchController">
-   <children>
-      <Label text="搜索">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="100.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.wdc.studentinformationmanagementsystem.SearchController">
+   <Label text="搜索">
+      <font>
+         <Font size="18.0"/>
+      </font>
+   </Label>
+   <HBox alignment="CENTER" prefHeight="70.0" prefWidth="400.0">
+      <Label text="按">
          <font>
-            <Font size="18.0" />
+            <Font size="15.0"/>
          </font>
       </Label>
-      <HBox alignment="CENTER" prefHeight="70.0" prefWidth="400.0">
-         <children>
-            <Label text="按">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <ComboBox fx:id="option" prefHeight="23.0" prefWidth="66.0" />
-            <Label text="搜索：">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <TextField fx:id="box" onAction="#ok">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextField>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="70.0" prefWidth="400.0" spacing="100.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#ok" text="确定" />
-            <Button mnemonicParsing="false" onAction="#cancel" text="取消" />
-         </children>
-      </HBox>
-   </children>
+      <ComboBox fx:id="option" prefHeight="23.0" prefWidth="66.0"/>
+      <Label text="搜索：">
+         <font>
+            <Font size="15.0"/>
+         </font>
+      </Label>
+      <TextField fx:id="box" onAction="#ok">
+         <font>
+            <Font size="15.0"/>
+         </font>
+      </TextField>
+   </HBox>
+   <HBox alignment="CENTER" prefHeight="70.0" prefWidth="400.0" spacing="100.0">
+      <Button mnemonicParsing="false" onAction="#ok" text="确定"/>
+      <Button mnemonicParsing="false" onAction="#cancel" text="取消"/>
+   </HBox>
 </VBox>

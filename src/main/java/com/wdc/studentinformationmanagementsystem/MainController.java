@@ -191,6 +191,33 @@ public class MainController implements Initializable {
 		stage.getIcons().setAll(Value.icon);
 		stage.show();
 	}
+	public void loadExample(){
+		InputStream exampleFile;
+		exampleFile = StudentInformationManagementSystem.class.getResourceAsStream("example.txt");
+		assert exampleFile != null;
+
+		Vector<String[]> information = new Vector<>();
+		try {
+			try (BufferedReader br = new BufferedReader(new InputStreamReader(exampleFile, StandardCharsets.UTF_8))){
+				String line;
+				while ((line = br.readLine()) != null){
+					String[] strings = line.split(" ");
+					information.add(strings);
+				}
+			}
+		} catch (IOException e){
+			throw new RuntimeException(e);
+		}
+
+		for(String[] strings : information){
+			Student student = new Student("-", "-", "-", "-");
+			student.setStudentNumber(strings[0]);
+			student.setName(strings[1]);
+			student.setGender(strings[2]);
+			student.setStudentClass(strings[3]);
+			Value.addStudent(student, form);
+		}
+	}
 
 	@SuppressWarnings("ResultOfMethodCallIgnored")
 	@FXML
@@ -300,7 +327,7 @@ public class MainController implements Initializable {
 		}
 		isSingleSelectionMode = !isSingleSelectionMode;
 	}
-
+	@FXML
 	public void count(ActionEvent actionEvent) {
 		if (Value.students.isEmpty()) return;
 		FXMLLoader fxmlLoader = new FXMLLoader(StudentInformationManagementSystem.class

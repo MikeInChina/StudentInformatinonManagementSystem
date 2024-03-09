@@ -16,6 +16,7 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class Value {
 	public static int adminAccount = hash("admin");
 	public static int adminPassword = hash("123456");
@@ -24,6 +25,7 @@ public class Value {
 	public static Image icon = new Image(Objects.requireNonNull(StudentInformationManagementSystem.class
 					.getResource("icon.png")).toString());
 	public static boolean isAdmin = true;
+	public static boolean first = false;
 	public static Vector<Student> students = new Vector<>();
 	public static HashMap<String, Student> hashMap = new HashMap<>();
 
@@ -35,7 +37,7 @@ public class Value {
 
 		try{
 			if (!adminAccountAndPasswordFile.exists()){
-				dir.mkdirs();
+				first = dir.mkdirs();
 				adminAccountAndPasswordFile.createNewFile();
 				studentsFile.createNewFile();
 				FileWriter fw = new FileWriter(adminAccountAndPasswordFile);
@@ -87,7 +89,7 @@ public class Value {
 			}
 			bw.close();
 			File studentAccountFile = new File("data/" + studentAccount + ".txt");
-			if (studentAccount != null){
+			if (!studentAccount.equals("null")){
 				FileWriter fileWriter = new FileWriter(studentAccountFile);
 				fileWriter.write(String.valueOf(studentPassword));
 				fileWriter.close();

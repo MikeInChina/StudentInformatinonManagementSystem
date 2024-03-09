@@ -86,5 +86,7 @@ public class StatisticsController implements Initializable {
                 StackPane.setAlignment(text, Pos.TOP_CENTER);
             }
         }
+        classChartNumber.setAutoRanging(false);
+        classChartNumber.setUpperBound(120);
     }
 }

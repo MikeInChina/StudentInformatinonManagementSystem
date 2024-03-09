@@ -4,11 +4,15 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Optional;
 
+import static com.wdc.studentinformationmanagementsystem.Value.first;
 import static com.wdc.studentinformationmanagementsystem.Value.icon;
 
 /**
@@ -51,6 +55,15 @@ public class StudentInformationManagementSystem extends Application {
 		mainController = mainFXML.getController();
 		if (!isAdmin){
 			mainController.notAdmin();
+		}else {
+			if (first){
+				Alert alert = Value.createAlert(Alert.AlertType.CONFIRMATION, "学生信息管理系统-询问",
+						"检测到您是第一次登录，是否加载示例数据？");
+				Optional<ButtonType> optional = alert.showAndWait();
+				if (optional.isPresent() && optional.get().equals(ButtonType.OK)){
+					mainController.loadExample();
+				}
+			}
 		}
 		Screen screen = Screen.getPrimary();
 		Rectangle2D rectangle2d = screen.getBounds();
