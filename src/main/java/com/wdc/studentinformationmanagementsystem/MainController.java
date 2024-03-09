@@ -302,6 +302,7 @@ public class MainController implements Initializable {
 	}
 
 	public void count(ActionEvent actionEvent) {
+		if (Value.students.isEmpty()) return;
 		FXMLLoader fxmlLoader = new FXMLLoader(StudentInformationManagementSystem.class
 				.getResource("statistic-view.fxml"));
 		Stage stage = getStageFromLoader(fxmlLoader, 800, 600);
