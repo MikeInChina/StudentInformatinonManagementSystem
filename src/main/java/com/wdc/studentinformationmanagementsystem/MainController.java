@@ -108,11 +108,11 @@ public class MainController implements Initializable {
 				info.showAndWait();
 			}
 		}else {
+			Vector<Integer> indexes = new Vector<>(form.getSelectionModel().getSelectedIndices().stream().toList());
+			if (indexes.isEmpty()) return;
 			Alert alert = Value.createAlert(Alert.AlertType.CONFIRMATION, "学生信息管理系统-询问",
 					"是否要删除选中的所有行？");
 			Optional<ButtonType> result = alert.showAndWait();
-			Vector<Integer> indexes = new Vector<>(form.getSelectionModel().getSelectedIndices().stream().toList());
-			if (indexes.isEmpty()) return;
 			if (result.isPresent() && result.get().equals(ButtonType.OK)){
 				for (int i = indexes.size() - 1; i >= 0; i--) {
 					int index = indexes.get(i);

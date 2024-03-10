@@ -92,7 +92,8 @@ public class LoginController {
 				throw new RuntimeException(e);
 			}
 		}else{
-			try (BufferedReader br = new BufferedReader(new FileReader(file))){
+			try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),
+					StandardCharsets.UTF_8))){
 				String line = br.readLine();
 				passwordHash = Integer.parseInt(line);
 			}catch (IOException e){
