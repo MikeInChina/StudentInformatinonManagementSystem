@@ -37,6 +37,8 @@ public class MainController implements Initializable {
 	@FXML
 	private Button searchBtn;
 	@FXML
+	private Button statisticBtn;
+	@FXML
 	private TableView<Student> form;
 	@FXML
 	private TableColumn<Student, String> number;
@@ -319,6 +321,7 @@ public class MainController implements Initializable {
 		importBtn.setDisable(true);
 		exportBtn.setDisable(true);
 		modeSwitcher.setDisable(true);
+		statisticBtn.setDisable(true);
 		StudentInformationManagementSystem.primaryStage.setTitle("学生信息管理系统-学生登录");
 	}
 	@FXML
