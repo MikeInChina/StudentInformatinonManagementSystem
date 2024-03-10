@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.chart.*;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -56,6 +57,7 @@ public class StatisticsController implements Initializable {
         int[] classes = new int[256];
         int[][] nums = new int[32][256];
         int maxNumber = -1;
+        int numOfGrade = 0, numOfClass = 0;
         for(Student s : Value.students){
             String classStr = s.getStudentClass();
             Pattern pattern = Pattern.compile("(\\d+)年(\\d+)班");
@@ -66,6 +68,8 @@ public class StatisticsController implements Initializable {
                 grades[grade]++;
                 classes[clazz]++;
                 nums[grade][clazz]++;
+                numOfGrade = Math.max(numOfGrade, grade);
+                numOfClass = Math.max(numOfClass, clazz);
             }
         }
         for(int c = 0;c < classes.length;c++){
@@ -79,13 +83,17 @@ public class StatisticsController implements Initializable {
             }
             classChart.getData().add(series);
             for (XYChart.Data<String, Number> data : series.getData()) {
-                Label text = new Label(data.getYValue().toString());
+                Tooltip tooltip = new Tooltip(data.getYValue().toString());
                 StackPane stackPane = (StackPane)data.getNode();
-                text.setTranslateY(-15);
-                text.setFont(new Font(10));
-                text.setTextFill(Color.gray(0.3));
-                stackPane.getChildren().add(text);
-                StackPane.setAlignment(text, Pos.TOP_CENTER);
+                Tooltip.install(data.getNode(), tooltip);
+                if (numOfGrade * numOfClass <= 35){
+                    Label text = new Label(data.getYValue().toString());
+                    text.setTranslateY(-15);
+                    text.setFont(new Font(8));
+                    text.setTextFill(Color.gray(0.3));
+                    stackPane.getChildren().add(text);
+                    StackPane.setAlignment(text, Pos.TOP_CENTER);
+                }
             }
         }
         classChartNumber.setAutoRanging(false);
